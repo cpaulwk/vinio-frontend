@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,16 +14,17 @@ export default function Home() {
         />
         <header className="flex w-screen h-[120px] justify-between items-center px-[4.25rem]">
           <div className="flex items-center text-brand-white gap-x-[5.3125rem]">
-            <p className="text-3xl">Vinio</p>
+            <button className="text-3xl">Vinio</button>
             <div className="flex items-center gap-x-[5.3125rem] text-2xl">
-              <p className="">Home</p>
-              <p className="">What is Vinio?</p>
-              <p className="">About</p>
+              <button>Home</button>
+              <button>What is Vinio?</button>
+              <Link href="/about">About</Link>
+              <Link href="/test">Test</Link>
             </div>
           </div>
           <div className="flex items-center text-brand-white text-2xl">
-            <p className="border-r px-[0.875rem]">FR</p>
-            <p className="px-[0.875rem]">EN</p>
+            <button className="border-r px-[0.875rem]">FR</button>
+            <button className="px-[0.875rem]">EN</button>
           </div>
         </header>
         <div className="flex grow flex-col gap-y-[5.6875rem] items-center justify-center px-[6.25rem]">
