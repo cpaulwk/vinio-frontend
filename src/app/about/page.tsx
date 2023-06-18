@@ -1,38 +1,10 @@
-"use client"; // delete after styling + useEffect + windowElements
 import Header from "@/components/organisms/Header";
-import { useEffect, useState } from "react";
-
-interface WindowSize {
-  width: number;
-  height: number;
-}
 
 export default function About() {
-  const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
-  useEffect(() => {
-    function handleWindowResize(): void {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.addEventListener("resize", handleWindowResize);
-    };
-  }, []);
 
   return (
     <main className="flex min-h-screen w-screen flex-col items-center justify-between bg-brand-white">
       <div className="absolute top-0">
-        <p>Window width: {windowSize.width}</p>
-        <p>Window height: {windowSize.height}</p>
       </div>
       <div className="flex w-screen flex-col">
         <Header page="About" />

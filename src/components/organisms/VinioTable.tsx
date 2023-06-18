@@ -44,7 +44,6 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     leftSuggestion: false,
     rightSuggestion: false,
   });
-  // const [query, setQuery] = useState({ leftQuery: "", rightQuery: "" });
   const [label, setLabel] = useState<{ leftLabel: string; rightLabel: string }>(
     {
       leftLabel: "grape variety",
@@ -235,7 +234,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
         </div>
       </div>
       <div className="flex w-full">
-        <div className="flex grow justify-center">
+        <div className="flex grow justify-center bg-brand-white">
           <div className="relative flex flex-1 border-r border-brand-blue">
             {toggleList === "leftCondition" && (
               <ToggleListModal

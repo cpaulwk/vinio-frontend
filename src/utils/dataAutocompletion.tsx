@@ -3,15 +3,6 @@ interface AutocompleteData {
   category: string;
 }
 
-// function convertToOptions(options) {
-//   return options.map((option) => {
-//     return {
-//       value: option.name,
-//       label: option.name.charAt(0).toUpperCase() + option.name.slice(1),
-//     };
-//   });
-// }
-
 function convertToSentenceCase(name: string) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
@@ -19,30 +10,6 @@ function convertToSentenceCase(name: string) {
 export async function fetchAutocompleteData() {
   const response = await fetch("http://localhost:3001/autocomplete/");
   const data = await response.json();
-
-  // const cheeseData = data.allData.filter(
-  //   (obj: AutocompleteData) => obj.category === "cheese"
-  // );
-  // const meatData = data.allData.filter(
-  //   (obj: AutocompleteData) => obj.category === "meat"
-  // );
-  // const grapeVarietyData = data.allData.filter(
-  //   (obj: AutocompleteData) => obj.category === "grape_variety"
-  // );
-
-  // const cheeseAutoCompletion = convertToOptions(cheeseData);
-  // const meatAutoCompletion = convertToOptions(meatData);
-  // const grapeVarietyAutoCompletion = convertToOptions(grapeVarietyData);
-
-  // const cheeseAutoCompletion = cheeseData;
-  // const meatAutoCompletion = convertToOptions(meatData);
-  // const grapeVarietyAutoCompletion = convertToOptions(grapeVarietyData);
-
-  // const result = {
-  //   cheese: cheeseAutoCompletion,
-  //   meat: meatAutoCompletion,
-  //   grapeVariety: grapeVarietyAutoCompletion,
-  // };
 
   const appellationData = data.allData
     .filter((products: AutocompleteData) => products.category === "appellation")
