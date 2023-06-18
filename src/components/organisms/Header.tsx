@@ -31,13 +31,13 @@ export default function Header({ page }: HeaderProps) {
   return (
     <header className="relative flex h-[7.5rem] w-screen items-center justify-between px-[4.25rem]">
       <div className={`flex items-center ${fontColor} gap-x-[5.3125rem]`}>
-        <Link href="/#home" className="text-xl xl:text-2xl">
+        <Link href="/index#home" className="text-xl xl:text-2xl">
           Vinio
         </Link>
         {page !== Page.Vinio && (
           <div className="flex items-center gap-x-[5.3125rem] text-l xl:text-2xl">
-            <Link href="/#home">Home</Link>
-            <Link href="/#whatIsVinio">What is Vinio?</Link>
+            <Link href="/index#home">Home</Link>
+            <Link href="/index#whatIsVinio">What is Vinio?</Link>
             <Link href="/about">About</Link>
           </div>
         )}
