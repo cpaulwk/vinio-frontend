@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     colors: {
@@ -19,6 +17,19 @@ module.exports = {
       "2xl": "2.0625rem",
       "3xl": "2.625rem",
     },
+    screens: {
+      xs: "375px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1281px",
+      "2xl": "1536px",
+    },
+    extend: {
+      maxHeight: {
+        "240": "15rem"
+      }
+    }
   },
   plugins: [],
 };

@@ -8,7 +8,12 @@ const ubuntu = Ubuntu({ subsets: ["latin"], weight: "300" });
 
 export const metadata: Metadata = {
   title: "Vinio",
-  description: "The web application that takes the guesswork out of wine pairing!",
+  description:
+    "The web application that takes the guesswork out of wine pairing!",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
 };
 
 export default function RootLayout({
