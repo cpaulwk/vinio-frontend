@@ -5,7 +5,10 @@ import Button from "@/components/atoms/Button";
 export default function Home() {
   return (
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
-      <div id="home" className="relative flex min-h-screen w-screen flex-col bg-brand-red">
+      <div
+        id="home"
+        className="relative flex min-h-screen w-screen flex-col bg-brand-red"
+      >
         <div className="absolute inset-0">
           <Image
             src="/images/hero-background.png"
@@ -23,7 +26,7 @@ export default function Home() {
           <Button name="Try Vinio" />
         </div>
       </div>
-      <div id="whatIsVinio" className="flex h-screen w-screen flex-col">
+      <div id="what-is-vinio" className="flex h-screen w-screen flex-col">
         <div className="flex flex-1 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-red">
           <p className="w-[34.375rem]">
             Gone are the days of feeling overwhelmed in the wine aisle or
@@ -76,7 +79,7 @@ export default function Home() {
           <Button name="Try Vinio" />
         </div>
         <div className="flex items-center justify-center bg-brand-blue p-[0.5rem] text-brand-white">
-          <p className="text-s text-center">
+          <p className="text-center text-s">
             © 2023 - 2023 www.vinio.com - All Rights Reserved.
           </p>
         </div>
