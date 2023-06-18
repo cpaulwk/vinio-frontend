@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Header from "../components/organisms/Header";
-import Button from "../components/atoms/Button";
+import Header from "@/components/organisms/Header";
+import Button from "@/components/atoms/Button";
 
 export default function Home() {
   return (
-    <main className="flex w-screen flex-col items-center justify-between overflow-hidden bg-brand-white">
-      <div className="relative flex h-screen w-screen flex-col bg-brand-red">
+    <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
+      <div className="relative flex min-h-screen w-screen flex-col bg-brand-red">
         <div className="absolute inset-0">
           <Image
             src="/images/hero-background.png"
@@ -16,7 +16,7 @@ export default function Home() {
         </div>
         <Header page="Home" />
         <div className="relative flex grow flex-col items-center justify-center gap-y-[5.6875rem] px-[6.25rem]">
-          <p className="text-center text-3xl text-brand-white">
+          <p className="text-center text-xl text-brand-white xl:text-3xl">
             Vinio - the web application that takes the guesswork out of wine
             pairing!
           </p>
@@ -24,7 +24,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex h-screen w-screen flex-col">
-        <div className="flex flex-1 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] text-brand-red">
+        <div className="flex flex-1 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-red">
           <p className="w-[34.375rem]">
             Gone are the days of feeling overwhelmed in the wine aisle or
             struggling to identify the perfect pairing for your meal. Vinio
@@ -40,7 +40,7 @@ export default function Home() {
             new favorite bottle.
           </p>
         </div>
-        <div className="flex flex-1 items-center justify-center bg-brand-blue p-[6.25rem] text-brand-white">
+        <div className="flex flex-1 items-center justify-center bg-brand-blue px-[6.25rem] py-[1.25rem] text-brand-white">
           <div className="flex h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
             <p className="text-center">
               Saves you time and money by helping you select the perfect bottle
@@ -66,7 +66,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex flex-1 flex-col items-center justify-center gap-y-[1.875rem] bg-brand-white px-[6.25rem] text-brand-blue">
+        <div className="flex flex-1 flex-col items-center justify-center gap-y-[1.875rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-blue">
           <p className="text-center leading-[1.6875rem]">
             Ready to experience the future of wine selection?
             <br />
@@ -75,8 +75,8 @@ export default function Home() {
           </p>
           <Button name="Try Vinio" />
         </div>
-        <div className="flex h-[2.0625rem] items-center justify-center bg-brand-blue px-[6.25rem] text-brand-white">
-          <p className="text-s">
+        <div className="flex items-center justify-center bg-brand-blue p-[0.5rem] text-brand-white">
+          <p className="text-s text-center">
             © 2023 - 2023 www.vinio.com - All Rights Reserved.
           </p>
         </div>

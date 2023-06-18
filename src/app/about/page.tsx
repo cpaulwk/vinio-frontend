@@ -1,12 +1,43 @@
-import Header from "../../components/organisms/Header";
+"use client"; // delete after styling + useEffect + windowElements
+import Header from "@/components/organisms/Header";
+import { useEffect, useState } from "react";
+
+interface WindowSize {
+  width: number;
+  height: number;
+}
 
 export default function About() {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    function handleWindowResize(): void {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.addEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   return (
-    <main className="flex w-screen flex-col  items-center justify-between overflow-hidden bg-brand-white">
-      <div className="flex h-screen w-screen flex-col">
+    <main className="flex min-h-screen w-screen flex-col items-center justify-between bg-brand-white">
+      <div className="absolute top-0">
+        <p>Window width: {windowSize.width}</p>
+        <p>Window height: {windowSize.height}</p>
+      </div>
+      <div className="flex w-screen flex-col">
         <Header page="About" />
         <div className="flex w-full flex-1 grow flex-col justify-center gap-y-[5.6875rem] px-[6.25rem]">
-          <div className="flex justify-center gap-y-[1.25rem] w-full text-brand-red">
+          <div className="flex w-full justify-center gap-y-[1.25rem] text-brand-red">
             <p>
               Vinio is a web application created in 2023, aiming to help wine
               buyers make better wine choices to pair with the occasion.
@@ -49,7 +80,7 @@ export default function About() {
             Thank you for your interest in Vinio, and I look forward to
             connecting with you soon.
           </p>
-          <p className="text-brand-blue">
+          <p className="mb-[6.25rem] text-brand-blue">
             Feel free to visit my personal web page to see my other projects!
           </p>
         </div>
