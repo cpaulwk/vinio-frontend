@@ -8,12 +8,15 @@ function convertToSentenceCase(name: string) {
 }
 
 export async function fetchAutocompleteData() {
-  const response = await fetch("http://localhost:3001/autocomplete/");
+  const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const response = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/autocomplete/`);
   const data = await response.json();
 
   const appellationData = data.allData
     .filter((products: AutocompleteData) => products.category === "appellation")
-    .map((appellation: AutocompleteData) => convertToSentenceCase(appellation.name));
+    .map((appellation: AutocompleteData) =>
+      convertToSentenceCase(appellation.name)
+    );
 
   const cheeseData = data.allData
     .filter((products: AutocompleteData) => products.category === "cheese")
@@ -24,8 +27,12 @@ export async function fetchAutocompleteData() {
     .map((meat: AutocompleteData) => convertToSentenceCase(meat.name));
 
   const grapeVarietyData = data.allData
-    .filter((products: AutocompleteData) => products.category === "grape_variety")
-    .map((grapeVariety: AutocompleteData) => convertToSentenceCase(grapeVariety.name));
+    .filter(
+      (products: AutocompleteData) => products.category === "grape_variety"
+    )
+    .map((grapeVariety: AutocompleteData) =>
+      convertToSentenceCase(grapeVariety.name)
+    );
 
   const result = {
     appellation: appellationData,

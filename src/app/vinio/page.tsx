@@ -48,7 +48,7 @@ export default function Vinio() {
       setResults(data1.pairing);
 
       const response2 = await fetch(
-        "http://localhost:3001/pairing/additional-suggestion",
+        `${NEXT_PUBLIC_BACKEND_URL}/pairing/additional-suggestion`,
         {
           method: "POST",
           headers: {
@@ -84,7 +84,7 @@ export default function Vinio() {
 
     try {
       const response = await fetch(
-        "http://localhost:3001/pairing/pairing-result",
+        `${NEXT_PUBLIC_BACKEND_URL}/pairing/pairing-result`,
         {
           method: "POST",
           headers: {
