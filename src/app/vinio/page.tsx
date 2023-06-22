@@ -18,6 +18,8 @@ interface OtherSuggestions {
 }
 
 export default function Vinio() {
+  const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   const [results, setResults] = useState<Product[] | null | string>(null);
   const [otherSuggestions, setOtherSuggestions] = useState<
     OtherSuggestions[] | null
@@ -33,7 +35,7 @@ export default function Vinio() {
 
     try {
       const response1 = await fetch(
-        "http://localhost:3001/pairing/grape-variety",
+        `${NEXT_PUBLIC_BACKEND_URL}/pairing/grape-variety`,
         {
           method: "POST",
           headers: {
