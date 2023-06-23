@@ -11,9 +11,10 @@ interface OtherSuggestions {
 }
 
 type ResultsProps = {
-  results: Product[] | null | string;
-  otherSuggestions: OtherSuggestions[] | null;
-  isSuggesting: boolean;
+  results?: Product[] | null | string;
+  otherSuggestions?: OtherSuggestions[] | null;
+  isSuggesting?: boolean;
+  isLoading?: boolean;
 };
 
 export default function Results_WIP({
@@ -78,9 +79,11 @@ export default function Results_WIP({
   return (
     <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center rounded border-brand-blue bg-brand-blue  text-brand-white">
       <p className="w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center">
-        Here is the result:
+        {isSuggesting
+          ? "Some good pairings with this type of wine:"
+          : "Pairing result:"}
       </p>
-      <div className="text-l flex grow flex-wrap gap-[2rem] px-[1.5rem] py-[0.75rem]">
+      <div className="flex grow flex-wrap gap-[2rem] px-[1.5rem] py-[0.75rem] text-l">
         {resultMessage}
       </div>
       {isSuggesting && (

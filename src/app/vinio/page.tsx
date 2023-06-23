@@ -18,23 +18,33 @@ interface OtherSuggestions {
 }
 
 export default function Vinio() {
+  const [results, setResults] = useState<Product[] | null | string>("");
   const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  const [results, setResults] = useState<Product[] | null | string>(null);
   const [otherSuggestions, setOtherSuggestions] = useState<
     OtherSuggestions[] | null
   >(null);
   const [query, setQuery] = useState({ leftQuery: "", rightQuery: "" });
   const [isSuggesting, setIsSuggesting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const getSuggestion = async (): Promise<void> => {
+    if (!query.leftQuery) {
+      setErrorMessage("Please indicate a grape variety for suggestions");
+      setResults("");
+      setIsSuggesting(false);
+      return;
+    }
+
+    setIsLoading(true);
     setIsSuggesting(true);
     const requestData = {
       grape_variety: query.leftQuery,
     };
 
     try {
-      const response1 = await fetch(
+      const suggestions = await fetch(
         `${NEXT_PUBLIC_BACKEND_URL}/pairing/grape-variety`,
         {
           method: "POST",
@@ -44,10 +54,16 @@ export default function Vinio() {
           body: JSON.stringify(requestData),
         }
       );
-      const data1 = await response1.json();
-      setResults(data1.pairing);
+      const suggestionsResult = await suggestions.json();
+      setResults(suggestionsResult.pairing);
 
-      const response2 = await fetch(
+      if (!suggestionsResult.pairing.length) {
+        setErrorMessage("");
+        setResults("");
+        setIsLoading(false);
+      };
+
+      const additionalSuggestions = await fetch(
         `${NEXT_PUBLIC_BACKEND_URL}/pairing/additional-suggestion`,
         {
           method: "POST",
@@ -57,23 +73,28 @@ export default function Vinio() {
           body: JSON.stringify(requestData),
         }
       );
-      const data2 = await response2.json();
-      setOtherSuggestions(data2.pairing);
-
+      const additionalSuggestionsResult = await additionalSuggestions.json();
+      setOtherSuggestions(additionalSuggestionsResult.pairing);
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
   };
 
   const pair = async (): Promise<void> => {
+    setIsLoading(true);
     setIsSuggesting(false);
     if (!query.leftQuery && !query.rightQuery) {
-      setResults([]);
+      setErrorMessage("");
+      setResults("");
+      setIsLoading(false);
       return;
     }
 
     if (!query.leftQuery || !query.rightQuery) {
-      setResults("Please fill both fields to pair");
+      setErrorMessage("Please fill both fields to pair");
+      setResults("");
+      setIsLoading(false);
       return;
     }
 
@@ -107,6 +128,7 @@ export default function Vinio() {
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -116,10 +138,18 @@ export default function Vinio() {
         <div className="flex grow flex-col justify-center gap-y-[5.6875rem] p-[6.25rem]">
           <div className="flex grow flex-col items-center justify-center gap-y-[3.5rem]">
             <VinioTable setQuery={setQuery} query={query} />
-            {results?.length !== 0 ? (
-              <Results results={results} otherSuggestions={otherSuggestions} isSuggesting={isSuggesting} />
+            {!isLoading ? (
+              results ? (
+                <Results
+                  results={results}
+                  otherSuggestions={otherSuggestions}
+                  isSuggesting={isSuggesting}
+                />
+              ) : (
+                <ErrorMessage errorMessage={errorMessage} />
+              )
             ) : (
-              <ErrorMessage />
+              <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center rounded border-brand-blue bg-brand-blue  text-brand-white"></section>
             )}
             <div className="flex flex-col items-center justify-center gap-[2.75rem] sm:flex-row">
               <SubmitButton
