@@ -2,9 +2,10 @@ import Link from "next/link";
 
 type HeaderProps = {
   page: string;
+  targetRef?: React.MutableRefObject<HTMLDivElement | null | undefined>;
 };
 
-export default function Header({ page }: HeaderProps) {
+export default function Header({ page, targetRef }: HeaderProps) {
   let fontColor: string;
 
   enum Page {
@@ -28,6 +29,12 @@ export default function Header({ page }: HeaderProps) {
       break;
   }
 
+  const scrollToTarget = () => {
+    if (targetRef?.current) {
+      targetRef?.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="relative flex h-[7.5rem] w-screen items-center justify-between px-[4.25rem]">
       <div className={`flex items-center ${fontColor} gap-x-[5.3125rem]`}>
@@ -37,7 +44,9 @@ export default function Header({ page }: HeaderProps) {
         {page !== Page.Vinio && (
           <div className="flex items-center gap-x-[5.3125rem] text-l xl:text-2xl">
             <Link href="/#home">Home</Link>
-            <Link href="/#what-is-vinio">What is Vinio?</Link>
+            <Link href="/#what-is-vinio" onClick={() => scrollToTarget()}>
+              What is Vinio?
+            </Link>
             <Link href="/about">About</Link>
           </div>
         )}
