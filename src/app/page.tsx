@@ -58,7 +58,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-center bg-brand-blue px-[6.25rem] py-[1.25rem] text-brand-white">
-          <div className="flex flex-col h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
+          <div className="flex gap-[1rem] flex-col h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
             <p className="text-center text-xl">
               Convenient
             </p>
