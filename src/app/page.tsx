@@ -30,12 +30,15 @@ export default function Home() {
           <Button name="Try Vinio" />
         </div>
       </div>
-      <div id="what-is-vinio" ref={targetRef} className="flex h-screen w-screen flex-col">
-        <div className="flex flex-1 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-red">
-          <div className="flex flex-col items-center gap-[1rem]">
-            <p className="w-[34.375rem] text-xl">
-              Personalized Recommendations</p>
-            <p className="w-[34.375rem]">
+      <div
+        id="what-is-vinio"
+        ref={targetRef}
+        className="flex h-screen w-screen flex-col"
+      >
+        <div className="flex w-full basis-4/12 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-red">
+          <div className="flex h-full w-full basis-1/2 flex-col justify-center gap-[1rem]">
+            <p className="text-xl">Personalized Recommendations</p>
+            <p>
               Gone are the days of feeling overwhelmed in the wine aisle or
               struggling to identify the perfect pairing for your meal. Vinio
               takes all the guesswork out of wine selection, providing
@@ -43,12 +46,10 @@ export default function Home() {
               preferences and the occasion.
             </p>
           </div>
-          <div className="flex flex-col items-center gap-[1rem]">
-            <p className="w-[34.375rem] text-xl">
-              Made for everyone
-            </p>
+          <div className="flex h-full w-full basis-1/2 flex-col justify-center gap-[1rem]">
+            <p className="text-xl">Made for everyone</p>
 
-            <p className="w-[34.375rem]">
+            <p>
               And the best part? Our web application is accessible to everyone,
               not just those with a refined palate or extensive wine knowledge.
               Whether you're a seasoned wine enthusiast or just starting to
@@ -57,45 +58,45 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex flex-1 items-center justify-center bg-brand-blue px-[6.25rem] py-[1.25rem] text-brand-white">
-          <div className="flex gap-[1rem] flex-col h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
-            <p className="text-center text-xl">
-              Convenient
-            </p>
-            <p className="text-center">
+        <div className="flex basis-3/12 items-center justify-center bg-brand-blue px-[6.25rem] py-[1.25rem] text-brand-white">
+          <div className="flex h-full flex-1 flex-col items-center gap-[1rem] border-r border-brand-white p-[1rem]">
+            <div className="flex basis-1/2 flex-col justify-end">
+              <p className="text-center text-xl ">Convenient</p>
+            </div>
+            <p className="basis-1/2 text-center">
               Saves you time and money by helping you select the perfect bottle
               for any occasion.
             </p>
           </div>
-          <div className="flex gap-[1rem] flex-col h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
-            <p className="text-center text-xl">
-              User-friendly
-            </p>
-            <p className="text-center">
+          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-r border-brand-white p-[1rem]">
+            <div className="flex basis-1/2 flex-col justify-end">
+              <p className="text-center text-xl ">User-friendly</p>
+            </div>
+            <p className="basis-1/2 text-center">
               Provides an easy-to-use interface and spot-on recommendations,
               making you feel like an expert.
             </p>
           </div>
-          <div className="flex gap-[1rem] flex-col h-full flex-1 items-center justify-center border-r border-brand-white p-[1rem]">
-            <p className="text-center text-xl">
-              Accuracy
-            </p>
-            <p className="text-center">
+          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-r border-brand-white p-[1rem]">
+            <div className="flex basis-1/2 flex-col justify-end">
+              <p className="text-center text-xl ">Accuracy</p>
+            </div>
+            <p className="basis-1/2 text-center">
               Takes all the guesswork out of wine selection, providing
-              recommendations based on the occasion.
+              insightful recommendations
             </p>
           </div>
-          <div className="flex gap-[1rem] flex-col h-full flex-1 items-center justify-center border-brand-white p-[1rem]">
-            <p className="text-center text-xl">
-              Confidence
-            </p>
-            <p className="text-center">
+          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-brand-white p-[1rem]">
+            <div className="flex basis-1/2 flex-col justify-end">
+              <p className="text-center text-xl ">Confidence</p>
+            </div>
+            <p className="basis-1/2 text-center">
               Makes you feel confident in your wine selection, even if you're a
               beginner.
             </p>
           </div>
         </div>
-        <div className="flex flex-col h-full flex-1 items-center justify-center border-r gap-[1rem] border-brand-white p-[1rem]">
+        <div className="flex h-full basis-5/12 flex-col items-center justify-center gap-[3rem] border-r border-brand-white p-[1rem]">
           <p className="text-center leading-[1.6875rem]">
             Ready to experience the future of wine selection?
             <br />
