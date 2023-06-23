@@ -50,8 +50,10 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       rightLabel: "cheese",
     }
   );
+  const [isLoadingAutocompleteData, setIsLoadingAutocompleteData] = useState(false);
 
   useEffect(() => {
+    setIsLoadingAutocompleteData(true);
     const fetchData = async () => {
       const data = await fetchAutocompleteData();
 
@@ -63,6 +65,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     };
 
     fetchData();
+    setIsLoadingAutocompleteData(false);
 
     const handleClickOutside = (event: MouseEvent) => {
       if (ulRef.current && !ulRef.current.contains(event.target as Node)) {
@@ -242,7 +245,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
                 onClick={handleSelectionClick}
               />
             )}
-            <SearchInput
+            {!isLoadingAutocompleteData && <SearchInput
               id={leftLabel}
               value={query.leftQuery}
               label={leftLabel}
@@ -255,6 +258,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               }
               ulRef={ulRef}
             />
+            }
           </div>
           <div className="relative flex flex-1">
             {toggleList === "rightCondition" && (
@@ -263,7 +267,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
                 onClick={handleSelectionClick}
               />
             )}
-            <SearchInput
+            {!isLoadingAutocompleteData && <SearchInput
               id={rightLabel}
               value={query.rightQuery}
               label={rightLabel}
@@ -276,6 +280,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               }
               ulRef={ulRef}
             />
+            }
           </div>
         </div>
       </div>
