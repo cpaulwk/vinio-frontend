@@ -84,12 +84,6 @@ export default function Vinio() {
   const pair = async (): Promise<void> => {
     setIsLoading(true);
     setIsSuggesting(false);
-    if (!query.leftQuery && !query.rightQuery) {
-      setErrorMessage("");
-      setResults("");
-      setIsLoading(false);
-      return;
-    }
 
     if (!query.leftQuery || !query.rightQuery) {
       setErrorMessage("Please fill both fields to pair");
