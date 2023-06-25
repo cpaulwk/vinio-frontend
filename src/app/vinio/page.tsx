@@ -126,7 +126,7 @@ export default function Vinio() {
   };
 
   return (
-    <main className="flex w-screen flex-col  items-center justify-between bg-brand-white">
+    <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
       <div className="flex h-screen w-screen flex-col">
         <Header page="Vinio" />
         <div className="flex grow flex-col justify-center gap-y-[5.6875rem] p-[6.25rem]">
