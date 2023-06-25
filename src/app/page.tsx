@@ -35,8 +35,8 @@ export default function Home() {
         ref={targetRef}
         className="flex h-screen w-screen flex-col"
       >
-        <div className="flex w-full basis-4/12 items-center justify-center gap-x-[9.375rem] bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-red">
-          <div className="flex h-full w-full basis-1/2 flex-col justify-center gap-[1rem]">
+        <div className="flex h-full w-full basis-4/12 flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
+          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[1rem] p-[1.25rem] md:items-start md:pr-[5rem]">
             <p className="text-xl">Personalized Recommendations</p>
             <p>
               Gone are the days of feeling overwhelmed in the wine aisle or
@@ -46,7 +46,22 @@ export default function Home() {
               preferences and the occasion.
             </p>
           </div>
-          <div className="flex h-full w-full basis-1/2 flex-col justify-center gap-[1rem]">
+          <div className="relative flex h-full w-full basis-1/2 justify-center ">
+            <Image
+              src="/images/dining_vibe.png"
+              height={400}
+              width={400}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                overflow: "hidden",
+              }}
+              alt="dining-vibe"
+            />
+          </div>
+        </div>
+        <div className="flex h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:flex-row-reverse">
+          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[1rem] p-[1.25rem] md:items-start md:pr-[5rem]">
             <p className="text-xl">Made for everyone</p>
 
             <p>
@@ -57,9 +72,18 @@ export default function Home() {
               new favorite bottle.
             </p>
           </div>
+          <div className="relative flex h-full w-full basis-1/2 justify-center ">
+            <Image
+              src="/images/wine_pairing.png"
+              height={400}
+              width={400}
+              style={{ objectFit: "cover", objectPosition: "center" }}
+              alt="wine-pairing"
+            />
+          </div>
         </div>
-        <div className="flex basis-3/12 items-center justify-center bg-brand-blue px-[6.25rem] py-[1.25rem] text-brand-white">
-          <div className="flex h-full flex-1 flex-col items-center gap-[1rem] border-r border-brand-white p-[1rem]">
+        <div className="flex flex-wrap items-center justify-center bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-blue">
+          <div className="flex flex-1 basis-full flex-col items-center gap-[1rem] border-brand-blue p-[1rem] md:basis-1/2 lg:basis-1/4 lg:border-r">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">Convenient</p>
             </div>
@@ -68,7 +92,7 @@ export default function Home() {
               for any occasion.
             </p>
           </div>
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-r border-brand-white p-[1rem]">
+          <div className="flex flex-1 basis-full flex-col items-center justify-center gap-[1rem] border-brand-blue p-[1rem] md:basis-1/2 lg:basis-1/4 lg:border-r">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">User-friendly</p>
             </div>
@@ -77,7 +101,7 @@ export default function Home() {
               making you feel like an expert.
             </p>
           </div>
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-r border-brand-white p-[1rem]">
+          <div className="flex flex-1 basis-full flex-col items-center justify-center gap-[1rem] border-brand-blue p-[1rem] md:basis-1/2 lg:basis-1/4 lg:border-r">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">Accuracy</p>
             </div>
@@ -86,7 +110,7 @@ export default function Home() {
               insightful recommendations
             </p>
           </div>
-          <div className="flex h-full flex-1 flex-col items-center justify-center gap-[1rem] border-brand-white p-[1rem]">
+          <div className="flex flex-1 basis-full flex-col items-center justify-center gap-[1rem] p-[1rem] md:basis-1/2 lg:basis-1/4">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">Confidence</p>
             </div>
@@ -96,14 +120,17 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex h-full basis-5/12 flex-col items-center justify-center gap-[3rem] border-r border-brand-white p-[1rem]">
-          <p className="text-center leading-[1.6875rem]">
-            Ready to experience the future of wine selection?
-            <br />
-            Head to our website and try Vinio today! Whether you're a seasoned
-            wine enthusiast or just starting to explore the world of wine.
-          </p>
-          <Button name="Try Vinio" />
+        <div className="flex w-full flex-col items-center justify-center gap-[3rem] bg-brand-red p-[3.125rem] text-brand-white">
+          <div className="flex flex-col items-center justify-center gap-[1rem]">
+            <p className="text-center">
+              Ready to experience the future of wine selection?
+            </p>
+            <p className="text-center">
+              Head to our website and try Vinio today! Whether you're a seasoned
+              wine enthusiast or just starting to explore the world of wine.
+            </p>
+          </div>
+          <Button name="Try Vinio" borderColor="white" />
         </div>
       </div>
     </main>
