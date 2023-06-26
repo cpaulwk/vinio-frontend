@@ -129,7 +129,7 @@ export default function Vinio() {
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
       <div className="flex h-screen w-screen flex-col">
         <Header page="Vinio" />
-        <div className="flex grow flex-col justify-center gap-y-[5.6875rem] p-[6.25rem]">
+        <div className="flex grow flex-col justify-center gap-y-[5.6875rem] p-[4.53125rem] md:p-[6.25rem]">
           <div className="flex grow flex-col items-center justify-center gap-y-[3.5rem]">
             <VinioTable setQuery={setQuery} query={query} />
             {!isLoading ? (

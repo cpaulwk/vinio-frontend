@@ -1,3 +1,5 @@
+import { useBreakpoint } from "@/utils/useBreakpoint";
+
 type SubmitButtonProps = {
   name: string;
   color?: string;
@@ -5,6 +7,8 @@ type SubmitButtonProps = {
 };
 
 export default function SubmitButton({ name, color, handleClick }: SubmitButtonProps) {
+  const isBelowXsBreakpoint = useBreakpoint("xs");
+
   let buttonColor: string;
 
   if (color) {
@@ -15,7 +19,7 @@ export default function SubmitButton({ name, color, handleClick }: SubmitButtonP
 
   return (
     <button
-      className={`flex h-[3.125rem] w-[14.375rem] items-center justify-center rounded-[50px] bg-brand-${buttonColor} text-brand-white`}
+      className={`${isBelowXsBreakpoint ? "hidden" : ""} flex h-[3.125rem] w-[14.375rem] items-center justify-center rounded-[50px] bg-brand-${buttonColor} text-brand-white`}
       onClick={handleClick}
     >
       <p>{name}</p>

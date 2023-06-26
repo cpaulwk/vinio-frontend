@@ -1,3 +1,4 @@
+import { useBreakpoint } from "@/utils/useBreakpoint";
 import { useState } from "react";
 
 interface Product {
@@ -23,6 +24,7 @@ export default function Results_WIP({
   isSuggesting,
 }: ResultsProps) {
   const [toggleResult, setToggleResult] = useState<Record<string, boolean>>({});
+  const isBelowXsBreakpoint = useBreakpoint("xs");
 
   if (!results) {
     return null;
@@ -49,7 +51,12 @@ export default function Results_WIP({
       };
 
       return (
-        <div key={product.product_id} className="basis-1/7">
+        <div
+          key={product.product_id}
+          className={`${
+            isBelowXsBreakpoint ? "hidden" : ""
+          } md:basis-1/7 basis-full sm:basis-1/3`}
+        >
           <button
             id={product.product}
             onClick={handleButtonClick}
@@ -78,16 +85,28 @@ export default function Results_WIP({
 
   return (
     <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center rounded border-brand-blue bg-brand-blue  text-brand-white">
-      <p className="w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center">
+      <p
+        className={`${
+          isBelowXsBreakpoint ? "hidden" : ""
+        } w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center`}
+      >
         {isSuggesting
           ? "Some good pairings with this type of wine:"
           : "Pairing result:"}
       </p>
-      <div className="flex grow flex-wrap gap-[2rem] px-[1.5rem] py-[0.75rem] text-l">
+      <div
+        className={`${
+          isBelowXsBreakpoint ? "hidden" : ""
+        } flex grow flex-wrap gap-[2rem] px-[1.5rem] py-[0.75rem] text-l`}
+      >
         {resultMessage}
       </div>
       {isSuggesting && (
-        <p className="w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center">
+        <p
+          className={`${
+            isBelowXsBreakpoint ? "hidden" : ""
+          } w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center`}
+        >
           You can also try similar grape varieties:{" "}
           <span>{otherSuggestionsMessage}</span>...
         </p>

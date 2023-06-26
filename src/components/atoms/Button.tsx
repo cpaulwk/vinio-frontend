@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useBreakpoint } from "@/utils/useBreakpoint";
 
 type ButtonProps = {
   name: string;
@@ -6,16 +7,15 @@ type ButtonProps = {
 };
 
 export default function Button({ name, borderColor }: ButtonProps) {
-  if (!borderColor) {
-    borderColor = "red"
-  }
+  const isBelowXsBreakpoint = useBreakpoint("xs");
 
   return (
     <Link
       href="/vinio"
-      className={`flex h-[3.125rem] w-[14.375rem] items-center border border-brand-${borderColor} justify-center rounded-[50px] bg-brand-red text-brand-white`}
+      className={`${isBelowXsBreakpoint ? "hidden" : ""
+        } flex h-[3.125rem] w-[14.375rem] items-center border border-brand-white justify-center rounded-[50px] bg-brand-red text-brand-white`}
     >
       <p>{name}</p>
-    </Link >
+    </Link>
   );
 }

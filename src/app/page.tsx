@@ -36,8 +36,8 @@ export default function Home() {
         className="flex h-screen w-screen flex-col"
       >
         <div className="flex h-full w-full basis-4/12 flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
-          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[1rem] p-[1.25rem] md:items-start md:pr-[5rem]">
-            <p className="text-xl">Personalized Recommendations</p>
+          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
+            <p className="text-l sm:text-xl">Personalized recommendations</p>
             <p>
               Gone are the days of feeling overwhelmed in the wine aisle or
               struggling to identify the perfect pairing for your meal. Vinio
@@ -61,8 +61,8 @@ export default function Home() {
           </div>
         </div>
         <div className="flex h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:flex-row-reverse">
-          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[1rem] p-[1.25rem] md:items-start md:pr-[5rem]">
-            <p className="text-xl">Made for everyone</p>
+          <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
+            <p className="text-l sm:text-xl">Made for everyone</p>
 
             <p>
               And the best part? Our web application is accessible to everyone,
@@ -82,7 +82,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center bg-brand-white px-[6.25rem] py-[1.25rem] text-brand-blue">
+        <div className="flex flex-wrap items-center justify-center bg-brand-white  py-[1.25rem] text-brand-blue sm:px-[6.25rem]">
           <div className="flex flex-1 basis-full flex-col items-center gap-[1rem] border-brand-blue p-[1rem] md:basis-1/2 lg:basis-1/4 lg:border-r">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">Convenient</p>

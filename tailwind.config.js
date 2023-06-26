@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     colors: {
       "brand-red": "#d0122d",
@@ -27,9 +25,9 @@ module.exports = {
     },
     extend: {
       maxHeight: {
-        "240": "15rem"
-      }
-    }
+        240: "15rem",
+      },
+    },
   },
   plugins: [],
 };

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import ToggleListModal from "@/components/molecules/ToggleListModal";
 import SearchInput from "@/components/molecules/SearchInput";
 import { fetchAutocompleteData } from "@/utils/dataAutocompletion";
+import { useBreakpoint } from "@/utils/useBreakpoint";
 
 type VinioTableProps = {
   query: Query;
@@ -51,6 +52,8 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     }
   );
   const [isLoadingAutocompleteData, setIsLoadingAutocompleteData] = useState(false);
+
+  const isBelowXsBreakpoint = useBreakpoint("xs");
 
   useEffect(() => {
     setIsLoadingAutocompleteData(true);
@@ -214,7 +217,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     <section className="flex w-full flex-col items-center rounded border border-brand-blue bg-brand-blue">
       <div className="flex h-[2.75rem] w-full">
         <div className="flex grow items-center justify-center">
-          <div className="justity-center flex flex-1 items-center px-[1.5rem]">
+          <div className={`justity-center flex flex-1 items-center px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             <label
               id="leftCondition"
               className="flex items-center justify-between p-[0.5rem] text-brand-white hover:cursor-pointer"
@@ -224,7 +227,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               <span className="ml-[0.75rem]">⌄</span>
             </label>
           </div>
-          <div className="justity-center flex flex-1 items-center px-[1.5rem]">
+          <div className={`justity-center flex flex-1 items-center px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             <label
               id="rightCondition"
               className="flex items-center justify-between p-[0.5rem] text-brand-white hover:cursor-pointer"
@@ -238,7 +241,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       </div>
       <div className="flex w-full">
         <div className="flex grow justify-center bg-brand-white">
-          <div className="relative flex flex-1 border-r border-brand-blue">
+          <div className={`relative flex flex-1 border-r border-brand-blue ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             {toggleList === "leftCondition" && (
               <ToggleListModal
                 selectedCondition={leftCondition}
@@ -260,7 +263,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
             />
             }
           </div>
-          <div className="relative flex flex-1">
+          <div className={`relative flex flex-1 ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             {toggleList === "rightCondition" && (
               <ToggleListModal
                 selectedCondition={rightCondition}
