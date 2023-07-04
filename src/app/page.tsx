@@ -13,7 +13,7 @@ export default function Home() {
         id="home"
         className="relative flex h-[90vh] w-screen flex-col bg-brand-red"
       >
-        <div className="absolute inset-0">
+        <div className="absolute h-full inset-0">
           <Image
             src="/images/hero-background.png"
             fill={true}
