@@ -32,6 +32,7 @@ export default function Vinio() {
   const getSuggestion = async (): Promise<void> => {
     if (!query.leftQuery) {
       setErrorMessage("Please indicate a grape variety for suggestions");
+      setIsLoading(false);
       setResults("");
       setIsSuggesting(false);
       return;
@@ -61,7 +62,7 @@ export default function Vinio() {
         setErrorMessage("");
         setResults("");
         setIsLoading(false);
-      };
+      }
 
       const additionalSuggestions = await fetch(
         `${NEXT_PUBLIC_BACKEND_URL}/pairing/additional-suggestion`,
@@ -129,8 +130,8 @@ export default function Vinio() {
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
       <div className="flex h-screen w-screen flex-col">
         <Header page="Vinio" />
-        <div className="flex grow flex-col justify-center gap-y-[5.6875rem] p-[4.53125rem] md:p-[6.25rem]">
-          <div className="flex grow flex-col items-center justify-center gap-y-[3.5rem]">
+        <div className="flex h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] md:p-[4.53125rem]">
+          <div className="flex w-full basis-4/5 flex-col items-center justify-center gap-y-[3.5rem]">
             <VinioTable setQuery={setQuery} query={query} />
             {!isLoading ? (
               results ? (
@@ -143,16 +144,16 @@ export default function Vinio() {
                 <ErrorMessage errorMessage={errorMessage} />
               )
             ) : (
-              <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center rounded border-brand-blue bg-brand-blue  text-brand-white"></section>
+              <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center border-brand-blue bg-brand-white text-brand-white sm:rounded"></section>
             )}
-            <div className="flex flex-col items-center justify-center gap-[2.75rem] sm:flex-row">
-              <SubmitButton
-                name="Get Suggestion!"
-                color="blue"
-                handleClick={getSuggestion}
-              />
-              <SubmitButton name="Pair!" handleClick={pair} />
-            </div>
+          </div>
+          <div className="flex basis-1/5 flex-col items-center justify-center gap-[2.75rem] pb-[1rem] sm:flex-row">
+            <SubmitButton
+              name="Get Suggestion!"
+              color="blue"
+              handleClick={getSuggestion}
+            />
+            <SubmitButton name="Pair!" handleClick={pair} />
           </div>
         </div>
       </div>

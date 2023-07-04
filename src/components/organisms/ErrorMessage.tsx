@@ -3,7 +3,6 @@ type ErrorMessageProps = {
 };
 
 export default function ErrorMessage({ errorMessage }: ErrorMessageProps) {
-  console.log("errorMessage => ", errorMessage);
   if (!errorMessage) {
     errorMessage = "Sorry we could not find what you were looking for";
   }

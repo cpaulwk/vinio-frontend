@@ -30,7 +30,7 @@ export default function Header({ page, targetRef }: HeaderProps) {
   };
 
   return (
-    <header className="relative flex h-[7.5rem] w-screen items-center justify-between px-[4.25rem]">
+    <header className="relative flex shrink-0 h-[7.5rem] w-screen items-center justify-between px-[4.25rem]">
       <div
         className={`flex w-full items-center ${fontColor} gap-x-[5.3125rem]`}
       >

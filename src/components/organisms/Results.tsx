@@ -1,4 +1,5 @@
 import { useBreakpoint } from "@/utils/useBreakpoint";
+import ProductList from "@/components/molecules/ProductList";
 import { useState } from "react";
 
 interface Product {
@@ -18,7 +19,7 @@ type ResultsProps = {
   isLoading?: boolean;
 };
 
-export default function Results_WIP({
+export default function Results({
   results,
   otherSuggestions,
   isSuggesting,
@@ -31,6 +32,7 @@ export default function Results_WIP({
   }
 
   let resultMessage;
+
   if (typeof results === "string") {
     resultMessage = results;
   } else if (Array.isArray(results)) {
@@ -40,37 +42,27 @@ export default function Results_WIP({
       );
 
       if (children.length === 0) {
-        return <p key={product.product_id}>{product.product}</p>;
+        return <p key={product.product_id}>{product.product[0].toUpperCase() + product.product.slice(1)}</p>;
       }
 
-      const handleButtonClick = () => {
+      const handleButtonClick = (productId: number) => {
         setToggleResult((prevState) => ({
           ...prevState,
-          [product.product_id]: !prevState[product.product_id],
+          [productId]: !prevState[productId],
         }));
       };
 
+      const numberOfResults = results.filter((obj) => obj.parent_id < 3).length;
+
       return (
-        <div
-          key={product.product_id}
-          className={`${
-            isBelowXsBreakpoint ? "hidden" : ""
-          } md:basis-1/7 basis-full sm:basis-1/3`}
-        >
-          <button
-            id={product.product}
-            onClick={handleButtonClick}
-            className="h-[1.6875rem] text-l"
-          >
-            {product.product}
-            <span className="ml-[0.75rem]">⌄</span>
-          </button>
-          {toggleResult[product.product_id] && (
-            <div className="">
-              {children.map((child) => renderProduct(child))}
-            </div>
-          )}
-        </div>
+        <ProductList
+          product={product}
+          toggleResult={toggleResult}
+          children={children}
+          handleButtonClick={handleButtonClick}
+          renderProduct={renderProduct}
+          numberOfResults={numberOfResults}
+        />
       );
     };
 
@@ -84,28 +76,27 @@ export default function Results_WIP({
     .join(", ");
 
   return (
-    <section className="h-min-[2.75rem] flex w-full flex-1 flex-col items-center justify-center rounded border-brand-blue bg-brand-blue  text-brand-white">
-      <p
-        className={`${
-          isBelowXsBreakpoint ? "hidden" : ""
-        } w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center`}
-      >
-        {isSuggesting
-          ? "Some good pairings with this type of wine:"
-          : "Pairing result:"}
-      </p>
-      <div
-        className={`${
-          isBelowXsBreakpoint ? "hidden" : ""
-        } flex grow flex-wrap gap-[2rem] px-[1.5rem] py-[0.75rem] text-l`}
-      >
-        {resultMessage}
+    <section className="flex w-full flex-1 flex-col gap-y-[1rem]">
+      <div className="h-min-[2.75rem] flex flex-col items-center justify-center rounded border-brand-blue bg-white text-brand-white">
+        <p
+          className={`${isBelowXsBreakpoint ? "hidden" : ""
+            } w-full sm:rounded-t bg-brand-blue px-[1.5rem] py-[0.75rem] text-center text-brand-white`}
+        >
+          {isSuggesting
+            ? "Some good pairings with this type of wine:"
+            : "Pairing result:"}
+        </p>
+        <div
+          className={`${isBelowXsBreakpoint ? "hidden" : ""
+            } flex w-full grow flex-wrap justify-center gap-[1rem] sm:rounded-b border-y sm:border px-[1.5rem] py-[0.75rem] text-l text-brand-blue`}
+        >
+          {resultMessage}
+        </div>
       </div>
       {isSuggesting && (
         <p
-          className={`${
-            isBelowXsBreakpoint ? "hidden" : ""
-          } w-full border-b border-brand-white px-[1.5rem] py-[0.75rem] text-center`}
+          className={`${isBelowXsBreakpoint ? "hidden" : ""
+            } w-full sm:rounded border-y sm:border bg-white px-[1.5rem] py-[0.75rem] text-center text-brand-blue`}
         >
           You can also try similar grape varieties:{" "}
           <span>{otherSuggestionsMessage}</span>...

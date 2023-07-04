@@ -73,6 +73,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     const handleClickOutside = (event: MouseEvent) => {
       if (ulRef.current && !ulRef.current.contains(event.target as Node)) {
         setIsListOpen({ leftSuggestion: false, rightSuggestion: false });
+        setToggleList(null);
       }
     };
 
@@ -214,23 +215,23 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const { leftLabel, rightLabel } = label;
 
   return (
-    <section className="flex w-full flex-col items-center rounded border border-brand-blue bg-brand-blue">
+    <section className="flex w-full flex-col items-center sm:rounded border border-brand-blue bg-brand-blue">
       <div className="flex h-[2.75rem] w-full">
         <div className="flex grow items-center justify-center">
-          <div className={`justity-center flex flex-1 items-center px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
+          <div className={`justity-center flex flex-1 items-center sm:px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             <label
               id="leftCondition"
-              className="flex items-center justify-between p-[0.5rem] text-brand-white hover:cursor-pointer"
+              className="flex w-full items-center justify-center sm:justify-start sm:p-[0.5rem] text-brand-white hover:cursor-pointer"
               onClick={(e) => handleToggleClick(e.currentTarget.id)}
             >
               <p className="text-brand-white">{leftCondition}</p>
               <span className="ml-[0.75rem]">⌄</span>
             </label>
           </div>
-          <div className={`justity-center flex flex-1 items-center px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
+          <div className={`justity-center flex flex-1 items-center sm:px-[1.5rem] ${isBelowXsBreakpoint ? "hidden" : ""}`}>
             <label
               id="rightCondition"
-              className="flex items-center justify-between p-[0.5rem] text-brand-white hover:cursor-pointer"
+              className="flex w-full items-center justify-center sm:justify-start sm:p-[0.5rem] text-brand-white hover:cursor-pointer"
               onClick={(e) => handleToggleClick(e.currentTarget.id)}
             >
               <p className="text-brand-white">{rightCondition}</p>
@@ -246,6 +247,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               <ToggleListModal
                 selectedCondition={leftCondition}
                 onClick={handleSelectionClick}
+                ulRef={ulRef}
               />
             )}
             {!isLoadingAutocompleteData && <SearchInput
@@ -268,6 +270,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               <ToggleListModal
                 selectedCondition={rightCondition}
                 onClick={handleSelectionClick}
+                ulRef={ulRef}
               />
             )}
             {!isLoadingAutocompleteData && <SearchInput

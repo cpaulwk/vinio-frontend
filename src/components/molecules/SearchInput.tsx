@@ -26,7 +26,6 @@ export default function SearchInput({
   const handleSuggestionClick = (suggestion: string) => {
     onSuggestionClick(suggestion);
   };
-  console.log("label => ", label);
 
   return (
     <div className="relative flex flex-1">
@@ -35,7 +34,7 @@ export default function SearchInput({
         type="text"
         value={value}
         onChange={onChange}
-        placeholder={`Write your ${label.toLowerCase()} here...`}
+        placeholder={`Type a ${label.toLowerCase()}`}
         className="w-full rounded-b border border-brand-white px-4 py-2 focus:outline-none"
         onClick={onClick}
       />

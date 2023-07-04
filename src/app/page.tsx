@@ -33,9 +33,9 @@ export default function Home() {
       <div
         id="what-is-vinio"
         ref={targetRef}
-        className="flex h-screen w-screen flex-col"
+        className="flex min-h-screen w-screen flex-col"
       >
-        <div className="flex h-full w-full basis-4/12 flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
           <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
             <p className="text-l sm:text-xl">Personalized recommendations</p>
             <p>

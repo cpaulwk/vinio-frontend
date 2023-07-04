@@ -1,11 +1,13 @@
 type ToggleListModalProps = {
   onClick: (arg: string) => void;
   selectedCondition: string;
+  ulRef: React.RefObject<HTMLUListElement>;
 };
 
 export default function ToggleListModal({
   onClick,
   selectedCondition,
+  ulRef,
 }: ToggleListModalProps) {
   const conditionMappings = [
     {
@@ -25,16 +27,22 @@ export default function ToggleListModal({
   ];
 
   return (
-    <div className="absolute z-10 left-[-1px] top-0 flex flex-col rounded-b border border-brand-blue bg-brand-blue px-[0.75rem] py-[0.5rem] text-brand-white">
+    <ul
+      ref={ulRef}
+      className="absolute left-[-1px] top-0 z-10 flex flex-col rounded-b border border-brand-blue bg-brand-blue px-[0.75rem] py-[0.5rem] text-brand-white"
+    >
       {conditionMappings.map((mapping) =>
         mapping.conditions.includes(selectedCondition)
           ? mapping.buttons.map((button) => (
-            <button key={button.value} onClick={() => onClick(button.value)}>
+            <li
+              className="cursor-pointer"
+              key={button.value} onClick={() => onClick(button.value)}>
               {button.label}
-            </button>
+            </li>
           ))
           : null
-      )}
-    </div>
+      )
+      }
+    </ul >
   );
 }
