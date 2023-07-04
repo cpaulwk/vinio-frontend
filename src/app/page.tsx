@@ -11,7 +11,7 @@ export default function Home() {
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
       <div
         id="home"
-        className="relative flex max-h-[90vh] w-screen flex-col bg-brand-red"
+        className="relative flex min-h-[90vh] w-screen flex-col bg-brand-red"
       >
         <div className="absolute inset-0">
           <Image
