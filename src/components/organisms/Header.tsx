@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useBreakpoint } from "@/utils/useBreakpoint";
 
 type HeaderProps = {
   page: string;
@@ -8,8 +7,6 @@ type HeaderProps = {
 
 export default function Header({ page, targetRef }: HeaderProps) {
   let fontColor: string;
-  const isBelowXsBreakpoint = useBreakpoint("xs");
-  const isBelowMdBreakpoint = useBreakpoint("md");
 
   enum Page {
     Home = "Home",
@@ -30,7 +27,7 @@ export default function Header({ page, targetRef }: HeaderProps) {
   };
 
   return (
-    <header className="relative flex shrink-0 h-[7.5rem] w-screen items-center justify-between px-[4.25rem]">
+    <header className="relative flex h-[7.5rem] w-screen shrink-0 items-center justify-between px-[4.25rem]">
       <div
         className={`flex w-full items-center ${fontColor} gap-x-[5.3125rem]`}
       >
@@ -39,8 +36,7 @@ export default function Header({ page, targetRef }: HeaderProps) {
         </Link>
         {page !== Page.Vinio && (
           <div
-            className={`flex items-center ${isBelowMdBreakpoint ? "hidden" : ""
-              } gap-x-[3rem] text-l lg:gap-x-[5.3125rem] xl:text-2xl`}
+            className={`flex items-center gap-x-[3rem] text-l max-md:hidden lg:gap-x-[5.3125rem] xl:text-2xl`}
           >
             <Link href="/#home">Home</Link>
             <Link href="/#what-is-vinio" onClick={() => scrollToTarget()}>
@@ -51,8 +47,7 @@ export default function Header({ page, targetRef }: HeaderProps) {
         )}
       </div>
       <div
-        className={`flex items-center ${fontColor} ${isBelowXsBreakpoint ? "hidden" : ""
-          } text-l xl:text-xl`}
+        className={`flex items-center ${fontColor} max-xs:hidden text-l xl:text-xl`}
       >
         <button className="border-r px-[0.875rem]">FR</button>
         <button className="px-[0.875rem]">EN</button>

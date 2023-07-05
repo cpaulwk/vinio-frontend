@@ -1,4 +1,3 @@
-import { useBreakpoint } from "@/utils/useBreakpoint";
 import ProductList from "@/components/molecules/ProductList";
 import { useState } from "react";
 
@@ -25,7 +24,6 @@ export default function Results({
   isSuggesting,
 }: ResultsProps) {
   const [toggleResult, setToggleResult] = useState<Record<string, boolean>>({});
-  const isBelowXsBreakpoint = useBreakpoint("xs");
 
   if (!results) {
     return null;
@@ -42,7 +40,11 @@ export default function Results({
       );
 
       if (children.length === 0) {
-        return <p key={product.product_id}>{product.product[0].toUpperCase() + product.product.slice(1)}</p>;
+        return (
+          <p key={product.product_id}>
+            {product.product[0].toUpperCase() + product.product.slice(1)}
+          </p>
+        );
       }
 
       const handleButtonClick = (productId: number) => {
@@ -79,24 +81,21 @@ export default function Results({
     <section className="flex w-full flex-1 flex-col gap-y-[1rem]">
       <div className="h-min-[2.75rem] flex flex-col items-center justify-center rounded border-brand-blue bg-white text-brand-white">
         <p
-          className={`${isBelowXsBreakpoint ? "hidden" : ""
-            } w-full sm:rounded-t bg-brand-blue px-[1.5rem] py-[0.75rem] text-center text-brand-white`}
+          className={`w-full bg-brand-blue px-[1.5rem] py-[0.75rem] text-center text-brand-white max-xs:hidden sm:rounded-t`}
         >
           {isSuggesting
             ? "Some good pairings with this type of wine:"
             : "Pairing result:"}
         </p>
         <div
-          className={`${isBelowXsBreakpoint ? "hidden" : ""
-            } flex w-full grow flex-wrap justify-center gap-[1rem] sm:rounded-b border-y sm:border px-[1.5rem] py-[0.75rem] text-l text-brand-blue`}
+          className={`flex w-full grow flex-wrap justify-center gap-[1rem] border-y px-[1.5rem] py-[0.75rem] text-l text-brand-blue max-xs:hidden sm:rounded-b sm:border`}
         >
           {resultMessage}
         </div>
       </div>
       {isSuggesting && (
         <p
-          className={`${isBelowXsBreakpoint ? "hidden" : ""
-            } w-full sm:rounded border-y sm:border bg-white px-[1.5rem] py-[0.75rem] text-center text-brand-blue`}
+          className={`w-full border-y bg-white px-[1.5rem] py-[0.75rem] text-center text-brand-blue max-xs:hidden sm:rounded sm:border`}
         >
           You can also try similar grape varieties:{" "}
           <span>{otherSuggestionsMessage}</span>...

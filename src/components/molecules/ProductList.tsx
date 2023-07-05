@@ -1,5 +1,3 @@
-import { useBreakpoint } from "@/utils/useBreakpoint";
-
 interface Product {
   product_id: number;
   product: string;
@@ -23,8 +21,6 @@ export default function ProductList({
   renderProduct,
   numberOfResults,
 }: ProductListProps) {
-  const isBelowXsBreakpoint = useBreakpoint("xs");
-
   // const categoryColors: Record<string, string> = {
   //   "delicate and nutty cheese": "#FAED70",
   //   "fresh and salted cheese": "#FFB977",
@@ -41,22 +37,20 @@ export default function ProductList({
   return (
     <div
       key={product.product_id}
-      className={`${isBelowXsBreakpoint ? "hidden" : ""
-        } flex min-w-[17rem] flex-col rounded lg:basis-1/${numberOfResults + 1
-        } border text-brand-blue`}
+      className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${
+        numberOfResults + 1
+      } border text-brand-blue`}
     >
       <button
         id={product.product}
         onClick={() => handleButtonClick(product.product_id)}
-        className="w-full bg-brand-blue text-brand-white text-l"
+        className="w-full bg-brand-blue text-l text-brand-white"
       >
         {product.product[0].toUpperCase() + product.product.slice(1)}
         <span className="ml-[0.75rem]">⌄</span>
       </button>
       {toggleResult[product.product_id] && (
-        <div
-          className={`flex w-full flex-col items-start px-[2rem]`}
-        >
+        <div className={`flex w-full flex-col items-start px-[2rem]`}>
           {children.map((child) => renderProduct(child))}
         </div>
       )}
