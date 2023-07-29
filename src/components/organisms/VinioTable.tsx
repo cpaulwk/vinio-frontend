@@ -115,7 +115,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const { leftCondition, rightCondition } = condition;
   const { leftLabel, rightLabel } = label;
 
-  const modalContentEl = document.getElementById(modalRoot);
+  // const modalContentEl = document.getElementById(modalRoot);
 
   const handleSelectedCondition = () => {
     if (selectedCondition === "leftCondition") {
@@ -125,16 +125,16 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     }
   };
 
-  const modalContent =
-    modalContentEl !== null
-      ? createPortal(
-        <ToggleListModal
-          selectedCondition={handleSelectedCondition()}
-          onClick={handleSelectionClick}
-        />,
-        modalContentEl
-      )
-      : null;
+  // const modalContent =
+  //   modalContentEl !== null
+  //     ? createPortal(
+  //       <ToggleListModal
+  //         selectedCondition={handleSelectedCondition()}
+  //         onClick={handleSelectionClick}
+  //       />,
+  //       modalContentEl
+  //     )
+  //     : null;
 
   // useEffect(() => {
   //   const handleOutsideClick = (event: MouseEvent) => {
@@ -202,7 +202,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
           </div>
         </div>
       </div>
-      {isModalOpen && modalContent}
+      {/* isModalOpen && modalContent */}
     </section>
   );
 }
