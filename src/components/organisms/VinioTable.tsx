@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import ToggleListModal from "@/components/molecules/ToggleListModal";
 import SearchInput from "@/components/molecules/SearchInput";
 import { fetchAutocompleteData } from "@/utils/dataAutocompletion";
+import { createPortal } from "react-dom";
 
 type VinioTableProps = {
   query: Query;
@@ -20,9 +21,6 @@ interface Query {
 }
 
 export default function VinioTable({ query, setQuery }: VinioTableProps) {
-  const ulRef = useRef<HTMLUListElement>(null);
-
-  const [toggleList, setToggleList] = useState<string | null>(null);
   const [condition, setCondition] = useState<{
     leftCondition: string;
     rightCondition: string;
@@ -30,263 +28,185 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     leftCondition: "Grape Variety",
     rightCondition: "Cheese",
   });
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [autocompleteData, setAutocompleteData] = useState({});
   const [autocompleteOptions, setAutocompleteOptions] =
     useState<AutocompleteOptions>({
       allOptions: {},
       leftOptions: [],
       rightOptions: [],
     });
-  const [isListOpen, setIsListOpen] = useState<{
-    leftSuggestion: boolean;
-    rightSuggestion: boolean;
-  }>({
-    leftSuggestion: false,
-    rightSuggestion: false,
-  });
   const [label, setLabel] = useState<{ leftLabel: string; rightLabel: string }>(
     {
       leftLabel: "grape variety",
       rightLabel: "cheese",
     }
   );
-  const [isLoadingAutocompleteData, setIsLoadingAutocompleteData] = useState(false);
+  // const [isLoadingAutocompleteData, setIsLoadingAutocompleteData] =
+  //   useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalRoot, setModalRoot] = useState("leftCondition");
+  const [selectedCondition, setSelectedCondition] = useState("leftCondition");
 
   useEffect(() => {
-    setIsLoadingAutocompleteData(true);
     const fetchData = async () => {
+      // setIsLoadingAutocompleteData(true);
       const data = await fetchAutocompleteData();
-
+      setAutocompleteData(data);
       setAutocompleteOptions({
         allOptions: data,
         leftOptions: data.grapeVariety,
         rightOptions: data.cheese,
       });
+      // setIsLoadingAutocompleteData(false);
     };
 
     fetchData();
-    setIsLoadingAutocompleteData(false);
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ulRef.current && !ulRef.current.contains(event.target as Node)) {
-        setIsListOpen({ leftSuggestion: false, rightSuggestion: false });
-        setToggleList(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, []);
 
-  const handleSuggestionClick = (id: string, suggestion: string) => {
-    const updatedQuery =
-      id === "leftSuggestion"
-        ? { ...query, leftQuery: suggestion }
-        : { ...query, rightQuery: suggestion };
-
-    const updatedIsListOpen =
-      id === "leftSuggestion"
-        ? { ...isListOpen, leftSuggestion: false }
-        : { ...isListOpen, rightSuggestion: false };
-
-    setQuery(updatedQuery);
-    setIsListOpen(updatedIsListOpen);
-  };
-
-  const filterSuggestions = (inputValue: string, options: string[]) =>
-    options.filter((suggestion: string) =>
-      suggestion.toLowerCase().includes(inputValue.toLowerCase())
-    );
-
-  const handleSearchInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    const leftSearchId = `${leftLabel[0].toLowerCase() + leftLabel.slice(1).replace(/(\s+)/g, "")
-      }Search`;
-    const rightSearchId = `${rightLabel[0].toLowerCase() + rightLabel.slice(1).replace(/(\s+)/g, "")
-      }Search`;
-
-    if (target.id === leftSearchId) {
-      const filtered = filterSuggestions(
-        query.leftQuery,
-        autocompleteOptions.leftOptions
-      );
-      setFilteredSuggestions(filtered);
-      setIsListOpen({
-        leftSuggestion: true,
-        rightSuggestion: false,
-      });
-    } else if (target.id === rightSearchId) {
-      const filtered = filterSuggestions(
-        query.rightQuery,
-        autocompleteOptions.rightOptions
-      );
-      setFilteredSuggestions(filtered);
-      setIsListOpen({
-        leftSuggestion: false,
-        rightSuggestion: true,
-      });
-    }
-  };
-
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    // const camelCasedLabel = label.leftLabel.replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) => {
-    //   return index === 0 ? match.toLowerCase() : match.toUpperCase();
-    // }).replace(/\s+/g, '');
-    const isLeftInput =
-      e.target.id ===
-      `${label.leftLabel[0].toLowerCase() +
-      label.leftLabel.slice(1).replace(/(\s+)/g, "")
-      }Search`;
-
-    const filtered = isLeftInput
-      ? filterSuggestions(inputValue, autocompleteOptions.leftOptions)
-      : filterSuggestions(inputValue, autocompleteOptions.rightOptions);
-
-    setFilteredSuggestions(filtered);
-
-    const updatedQuery = isLeftInput
-      ? { ...query, leftQuery: e.target.value }
-      : { ...query, rightQuery: e.target.value };
-
-    const updatedIsListOpen = isLeftInput
-      ? { ...isListOpen, leftSuggestion: true, rightSuggestion: false }
-      : { ...isListOpen, leftSuggestion: false, rightSuggestion: true };
-
-    setQuery(updatedQuery);
-    setIsListOpen(updatedIsListOpen);
-  };
+  const toggleButtonClickedRef = useRef(false);
 
   const handleToggleClick = (field: string) => {
-    if (toggleList === field) {
-      setToggleList(null);
+    setSelectedCondition(field);
+
+    if (isModalOpen && field !== modalRoot) {
+      setModalRoot(field);
+      toggleButtonClickedRef.current = true;
     } else {
-      setToggleList(field);
+      setModalRoot(field);
+      setIsModalOpen(!isModalOpen);
     }
   };
 
   const handleSelectionClick = (field: string) => {
-    // const chosenField = field[0].toLowerCase() + field.slice(1).replace(/(\s+)/g, "");
     const chosenField = field
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) => {
         return index === 0 ? match.toLowerCase() : match.toUpperCase();
       })
       .replace(/\s+/g, "");
     const updatedCondition =
-      toggleList === "leftCondition"
+      selectedCondition === "leftCondition"
         ? { ...condition, leftCondition: field }
         : { ...condition, rightCondition: field };
 
     const updatedLabel =
-      toggleList === "leftCondition"
+      selectedCondition === "leftCondition"
         ? { ...label, leftLabel: field }
         : { ...label, rightLabel: field };
 
     const updatedOptions =
-      toggleList === "leftCondition"
+      selectedCondition === "leftCondition"
         ? {
-          ...autocompleteOptions,
-          leftOptions: autocompleteOptions.allOptions[chosenField],
-        }
+            ...autocompleteOptions,
+            leftOptions: autocompleteOptions.allOptions[chosenField],
+          }
         : {
-          ...autocompleteOptions,
-          rightOptions: autocompleteOptions.allOptions[chosenField],
-        };
+            ...autocompleteOptions,
+            rightOptions: autocompleteOptions.allOptions[chosenField],
+          };
 
-    const updatedQuery =
-      toggleList === "leftCondition"
+    const clearedQuery =
+      selectedCondition === "leftCondition"
         ? { ...query, leftQuery: "" }
         : { ...query, rightQuery: "" };
 
+    setIsModalOpen(false);
     setCondition(updatedCondition);
-    setToggleList(null);
     setLabel(updatedLabel);
     setAutocompleteOptions(updatedOptions);
-    setQuery(updatedQuery)
+    setQuery(clearedQuery);
   };
 
   const { leftCondition, rightCondition } = condition;
   const { leftLabel, rightLabel } = label;
 
+  const modalContentEl = document.getElementById(modalRoot);
+
+  const handleSelectedCondition = () => {
+    if (selectedCondition === "leftCondition") {
+      return condition.leftCondition;
+    } else {
+      return condition.rightCondition;
+    }
+  };
+
+  const modalContent =
+    modalContentEl !== null
+      ? createPortal(
+          <ToggleListModal
+            selectedCondition={handleSelectedCondition()}
+            onClick={handleSelectionClick}
+          />,
+          modalContentEl
+        )
+      : null;
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (event.target !== modalContentEl && !toggleButtonClickedRef.current) {
+        setIsModalOpen(false);
+      }
+      toggleButtonClickedRef.current = false;
+    };
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isModalOpen]);
+
   return (
-    <section className="flex w-full flex-col items-center sm:rounded border border-brand-blue bg-brand-blue">
+    <section className="flex w-full flex-col items-center border border-brand-blue bg-brand-blue sm:rounded">
       <div className="flex h-[2.75rem] w-full">
         <div className="flex grow items-center justify-center">
-          <div className={`justity-center flex flex-1 items-center sm:px-[1.5rem] max-xs:hidden`}>
-            <label
+          <div
+            className={`flex flex-1 items-center max-xs:hidden sm:px-[1.5rem]`}
+          >
+            <button
               id="leftCondition"
-              className="flex w-full items-center justify-center sm:justify-start sm:p-[0.5rem] text-brand-white hover:cursor-pointer"
+              className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
               onClick={(e) => handleToggleClick(e.currentTarget.id)}
             >
-              <p className="text-brand-white">{leftCondition}</p>
-              <span className="ml-[0.75rem]">⌄</span>
-            </label>
+              {leftCondition} ⌄
+            </button>
           </div>
-          <div className={`justity-center flex flex-1 items-center sm:px-[1.5rem] max-xs:hidden`}>
-            <label
+          <div
+            className={`flex flex-1 items-center max-xs:hidden sm:px-[1.5rem]`}
+          >
+            <button
               id="rightCondition"
-              className="flex w-full items-center justify-center sm:justify-start sm:p-[0.5rem] text-brand-white hover:cursor-pointer"
+              className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
               onClick={(e) => handleToggleClick(e.currentTarget.id)}
             >
-              <p className="text-brand-white">{rightCondition}</p>
-              <span className="ml-[0.75rem]">⌄</span>
-            </label>
+              {rightCondition} ⌄
+            </button>
           </div>
         </div>
       </div>
       <div className="flex w-full">
         <div className="flex grow justify-center bg-brand-white">
-          <div className={`relative flex flex-1 border-r border-brand-blue max-xs:hidden`}>
-            {toggleList === "leftCondition" && (
-              <ToggleListModal
-                selectedCondition={leftCondition}
-                onClick={handleSelectionClick}
-                ulRef={ulRef}
-              />
-            )}
-            {!isLoadingAutocompleteData && <SearchInput
+          <div
+            className={`relative flex flex-1 border-r border-brand-blue max-xs:hidden`}
+          >
+            <SearchInput
               id={leftLabel}
-              value={query.leftQuery}
-              label={leftLabel}
-              suggestions={filteredSuggestions}
-              isOpen={isListOpen.leftSuggestion}
-              onClick={handleSearchInputClick}
-              onChange={handleSearchInputChange}
-              onSuggestionClick={(suggestion) =>
-                handleSuggestionClick("leftSuggestion", suggestion)
-              }
-              ulRef={ulRef}
+              name="leftQuery"
+              allSuggestions={autocompleteData}
+              query={query}
+              setQuery={setQuery}
             />
-            }
           </div>
           <div className={`relative flex flex-1 max-xs:hidden`}>
-            {toggleList === "rightCondition" && (
-              <ToggleListModal
-                selectedCondition={rightCondition}
-                onClick={handleSelectionClick}
-                ulRef={ulRef}
-              />
-            )}
-            {!isLoadingAutocompleteData && <SearchInput
+            <SearchInput
               id={rightLabel}
-              value={query.rightQuery}
-              label={rightLabel}
-              suggestions={filteredSuggestions}
-              isOpen={isListOpen.rightSuggestion}
-              onClick={handleSearchInputClick}
-              onChange={handleSearchInputChange}
-              onSuggestionClick={(suggestion) =>
-                handleSuggestionClick("rightSuggestion", suggestion)
-              }
-              ulRef={ulRef}
+              name="rightQuery"
+              allSuggestions={autocompleteData}
+              query={query}
+              setQuery={setQuery}
             />
-            }
           </div>
         </div>
       </div>
+      {isModalOpen && modalContent}
     </section>
   );
 }
