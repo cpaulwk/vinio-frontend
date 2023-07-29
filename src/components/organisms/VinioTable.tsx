@@ -136,19 +136,19 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       )
       : null;
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (event.target !== modalContentEl && !toggleButtonClickedRef.current) {
-        setIsModalOpen(false);
-      }
-      toggleButtonClickedRef.current = false;
-    };
-    document.addEventListener("click", handleOutsideClick);
+  // useEffect(() => {
+  //   const handleOutsideClick = (event: MouseEvent) => {
+  //     if (event.target !== modalContentEl && !toggleButtonClickedRef.current) {
+  //       setIsModalOpen(false);
+  //     }
+  //     toggleButtonClickedRef.current = false;
+  //   };
+  //   document.addEventListener("click", handleOutsideClick);
 
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isModalOpen]);
+  //   return () => {
+  //     document.removeEventListener("click", handleOutsideClick);
+  //   };
+  // }, [isModalOpen]);
 
   return (
     <section className="flex w-full flex-col items-center border border-brand-blue bg-brand-blue sm:rounded">
