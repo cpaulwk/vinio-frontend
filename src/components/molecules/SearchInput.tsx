@@ -22,10 +22,16 @@ export default function SearchInput({
 }: SearchInputProps) {
   const [currentInput, setCurrentInput] = useState<string | null>(null);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+
+  const getInputValue = () => {
+    if (name === "leftQuery") {
+      return query.leftQuery;
+    } else if (name === "rightQuery") {
+      return query.rightQuery;
+    }
+  };
 
   const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion);
     setQuery({ ...query, [name]: suggestion });
     // setOpenSuggestion({ openSuggestion: null });
     setCurrentInput(null);
@@ -54,7 +60,6 @@ export default function SearchInput({
       allSuggestions[e.target.id]
     );
     setFilteredSuggestions(filtered);
-    setInputValue(e.target.value);
     setQuery({ ...query, [name]: e.target.value });
 
     if (!filtered.length) {
@@ -77,7 +82,7 @@ export default function SearchInput({
       <input
         id={searchInputId}
         type="text"
-        value={inputValue}
+        value={getInputValue()}
         onChange={handleOnChange}
         placeholder={`Type a ${id.toLowerCase()}`}
         className="w-full rounded-b border border-brand-white px-4 py-2 focus:outline-none"

@@ -96,13 +96,13 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     const updatedOptions =
       selectedCondition === "leftCondition"
         ? {
-            ...autocompleteOptions,
-            leftOptions: autocompleteOptions.allOptions[chosenField],
-          }
+          ...autocompleteOptions,
+          leftOptions: autocompleteOptions.allOptions[chosenField],
+        }
         : {
-            ...autocompleteOptions,
-            rightOptions: autocompleteOptions.allOptions[chosenField],
-          };
+          ...autocompleteOptions,
+          rightOptions: autocompleteOptions.allOptions[chosenField],
+        };
 
     const clearedQuery =
       selectedCondition === "leftCondition"
@@ -132,12 +132,12 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const modalContent =
     modalContentEl !== null
       ? createPortal(
-          <ToggleListModal
-            selectedCondition={handleSelectedCondition()}
-            onClick={handleSelectionClick}
-          />,
-          modalContentEl
-        )
+        <ToggleListModal
+          selectedCondition={handleSelectedCondition()}
+          onClick={handleSelectionClick}
+        />,
+        modalContentEl
+      )
       : null;
 
   useEffect(() => {
