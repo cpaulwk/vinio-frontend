@@ -41,15 +41,12 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       rightLabel: "cheese",
     }
   );
-  // const [isLoadingAutocompleteData, setIsLoadingAutocompleteData] =
-  //   useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoot, setModalRoot] = useState("leftCondition");
   const [selectedCondition, setSelectedCondition] = useState("leftCondition");
 
   useEffect(() => {
     const fetchData = async () => {
-      // setIsLoadingAutocompleteData(true);
       const data = await fetchAutocompleteData();
       setAutocompleteData(data);
       setAutocompleteOptions({
@@ -57,7 +54,6 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
         leftOptions: data.grapeVariety,
         rightOptions: data.cheese,
       });
-      // setIsLoadingAutocompleteData(false);
     };
 
     fetchData();

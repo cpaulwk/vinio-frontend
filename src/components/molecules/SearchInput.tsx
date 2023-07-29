@@ -33,18 +33,15 @@ export default function SearchInput({
 
   const handleSuggestionClick = (suggestion: string) => {
     setQuery({ ...query, [name]: suggestion });
-    // setOpenSuggestion({ openSuggestion: null });
     setCurrentInput(null);
   };
 
   const handleOnBlur = () => {
-    // setOpenSuggestion({ openSuggestion: null });
     setCurrentInput(null);
   };
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     setFilteredSuggestions(allSuggestions[e.currentTarget.id]);
-    // setOpenSuggestion({ openSuggestion: e.currentTarget.id });
     setCurrentInput(e.currentTarget.id);
   };
 
@@ -63,10 +60,8 @@ export default function SearchInput({
     setQuery({ ...query, [name]: e.target.value });
 
     if (!filtered.length) {
-      // setOpenSuggestion({ openSuggestion: null });
       setCurrentInput(null);
     } else {
-      // setOpenSuggestion({ openSuggestion: e.currentTarget.id });
       setCurrentInput(e.currentTarget.id);
     }
   };

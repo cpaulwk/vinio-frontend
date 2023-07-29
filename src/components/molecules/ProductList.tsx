@@ -21,19 +21,6 @@ export default function ProductList({
   renderProduct,
   numberOfResults,
 }: ProductListProps) {
-  // const categoryColors: Record<string, string> = {
-  //   "delicate and nutty cheese": "#FAED70",
-  //   "fresh and salted cheese": "#FFB977",
-  //   "smelly cheese": "#A55B6E",
-  //   "strong and firm cheese": "#F9B2B2",
-  //   charcuterie: "#CBB5A2",
-  //   fish: "#7D5642",
-  //   mollusc: "#284B63",
-  //   "red meat": "#AEB9E8",
-  //   shellfish: "#B2E6D4",
-  //   "white meat": "#7A9E7E",
-  // };
-
   return (
     <div
       key={product.product_id}
