@@ -11,9 +11,9 @@ export default function Home() {
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
       <div
         id="home"
-        className="relative flex h-[90vh] w-screen flex-col bg-brand-red"
+        className="relative flex min-h-[90vh] w-screen flex-col bg-brand-red"
       >
-        <div className="absolute h-full inset-0">
+        <div className="absolute inset-0">
           <Image
             src="/images/hero-background.png"
             fill={true}
@@ -35,7 +35,7 @@ export default function Home() {
         ref={targetRef}
         className="flex min-h-screen w-screen flex-col"
       >
-        <div className="flex h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
+        <div className="flex h-[100vh] max-h-[100vh] md:h-[40vh] md:min-h-[40vh] w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
           <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
             <p className="text-l sm:text-xl">Personalized recommendations</p>
             <p>
@@ -46,21 +46,16 @@ export default function Home() {
               preferences and the occasion.
             </p>
           </div>
-          <div className="relative flex h-full w-full basis-1/2 justify-center ">
+          <div className="relative aspect-square flex h-full basis-1/2 justify-center ">
             <Image
               src="/images/dining_vibe.png"
-              height={400}
-              width={400}
-              style={{
-                objectFit: "cover",
-                objectPosition: "center",
-                overflow: "hidden",
-              }}
+              fill={true}
+              style={{ objectFit: "contain", objectPosition: "center" }}
               alt="dining-vibe"
             />
           </div>
         </div>
-        <div className="flex h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:flex-row-reverse">
+        <div className="flex h-[100vh] max-h-[100vh] md:h-[40vh] md:min-h-[40vh] md:h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:flex-row-reverse">
           <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
             <p className="text-l sm:text-xl">Made for everyone</p>
 
@@ -72,17 +67,16 @@ export default function Home() {
               new favorite bottle.
             </p>
           </div>
-          <div className="relative flex h-full w-full basis-1/2 justify-center ">
+          <div className="relative aspect-square flex h-full basis-1/2 justify-center ">
             <Image
               src="/images/wine_pairing.png"
-              height={400}
-              width={400}
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              fill={true}
+              style={{ objectFit: "contain", objectPosition: "center" }}
               alt="wine-pairing"
             />
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center bg-brand-white  py-[1.25rem] text-brand-blue sm:px-[6.25rem]">
+        <div className="flex min-h-[30vh] flex-wrap items-center justify-center bg-brand-white  py-[1.25rem] text-brand-blue sm:px-[6.25rem]">
           <div className="flex flex-1 basis-full flex-col items-center gap-[1rem] border-brand-blue p-[1rem] md:basis-1/2 lg:basis-1/4 lg:border-r">
             <div className="flex basis-1/2 flex-col justify-end">
               <p className="text-center text-xl ">Convenient</p>
@@ -120,7 +114,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex w-full flex-col items-center justify-center gap-[3rem] bg-brand-red p-[3.125rem] text-brand-white">
+        <div className="flex min-h-[30vh] w-full flex-col items-center justify-center gap-[3rem] bg-brand-red p-[3.125rem] text-brand-white">
           <div className="flex flex-col items-center justify-center gap-[1rem]">
             <p className="text-center">
               Ready to experience the future of wine selection?
