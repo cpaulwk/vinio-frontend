@@ -44,8 +44,9 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoot, setModalRoot] = useState("leftCondition");
   const [selectedCondition, setSelectedCondition] = useState("leftCondition");
-  // const [rootNode, setRootNode] = useState(null);
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const toggleButtonClickedRef = useRef(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,12 +62,9 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     fetchData();
   }, []);
 
-  const toggleButtonClickedRef = useRef(false);
+  const handleToggleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const field = event.currentTarget.id;
 
-  const handleToggleClick = (
-    field: string,
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
     setSelectedCondition(field);
 
     if (isModalOpen && field !== modalRoot) {
@@ -76,7 +74,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       setModalRoot(field);
       setIsModalOpen(!isModalOpen);
     }
-    buttonRef.current = e.currentTarget as HTMLButtonElement;
+    buttonRef.current = event.currentTarget;
   };
 
   const handleSelectionClick = (field: string) => {
@@ -98,13 +96,13 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     const updatedOptions =
       selectedCondition === "leftCondition"
         ? {
-          ...autocompleteOptions,
-          leftOptions: autocompleteOptions.allOptions[chosenField],
-        }
+            ...autocompleteOptions,
+            leftOptions: autocompleteOptions.allOptions[chosenField],
+          }
         : {
-          ...autocompleteOptions,
-          rightOptions: autocompleteOptions.allOptions[chosenField],
-        };
+            ...autocompleteOptions,
+            rightOptions: autocompleteOptions.allOptions[chosenField],
+          };
 
     const clearedQuery =
       selectedCondition === "leftCondition"
@@ -121,8 +119,6 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const { leftCondition, rightCondition } = condition;
   const { leftLabel, rightLabel } = label;
 
-  // const modalContentEl = document.getElementById(modalRoot);
-
   const handleSelectedCondition = () => {
     if (selectedCondition === "leftCondition") {
       return condition.leftCondition;
@@ -134,42 +130,20 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const modalContent =
     buttonRef.current !== null
       ? createPortal(
-        <ToggleListModal
-          selectedCondition={handleSelectedCondition()}
-          onClick={handleSelectionClick}
-        />,
-        buttonRef.current
-      )
+          <ToggleListModal
+            selectedCondition={handleSelectedCondition()}
+            onClick={handleSelectionClick}
+          />,
+          buttonRef.current
+        )
       : null;
-
-  // const modalContent =
-  //   modalContentEl !== null
-  //     ? createPortal(
-  //       <ToggleListModal
-  //         selectedCondition={handleSelectedCondition()}
-  //         onClick={handleSelectionClick}
-  //       />,
-  //       modalContentEl
-  //     )
-  //     : null;
-
-  // useEffect(() => {
-  //   const handleOutsideClick = (event: MouseEvent) => {
-  //     if (event.target !== modalContentEl && !toggleButtonClickedRef.current) {
-  //       setIsModalOpen(false);
-  //     }
-  //     toggleButtonClickedRef.current = false;
-  //   };
-  //   document.addEventListener("click", handleOutsideClick);
-
-  //   return () => {
-  //     document.removeEventListener("click", handleOutsideClick);
-  //   };
-  // }, [isModalOpen]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (event.target !== buttonRef.current && !toggleButtonClickedRef.current) {
+      if (
+        event.target !== buttonRef.current &&
+        !toggleButtonClickedRef.current
+      ) {
         setIsModalOpen(false);
       }
       toggleButtonClickedRef.current = false;
@@ -192,7 +166,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               id="leftCondition"
               ref={buttonRef}
               className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={(e) => handleToggleClick(e.currentTarget.id, e)}
+              onClick={handleToggleClick}
             >
               {leftCondition} ⌄
             </button>
@@ -204,7 +178,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
               id="rightCondition"
               ref={buttonRef}
               className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={(e) => handleToggleClick(e.currentTarget.id, e)}
+              onClick={handleToggleClick}
             >
               {rightCondition} ⌄
             </button>
