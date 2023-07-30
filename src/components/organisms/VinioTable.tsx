@@ -44,6 +44,8 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoot, setModalRoot] = useState("leftCondition");
   const [selectedCondition, setSelectedCondition] = useState("leftCondition");
+  // const [rootNode, setRootNode] = useState(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +63,10 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
 
   const toggleButtonClickedRef = useRef(false);
 
-  const handleToggleClick = (field: string) => {
+  const handleToggleClick = (
+    field: string,
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     setSelectedCondition(field);
 
     if (isModalOpen && field !== modalRoot) {
@@ -71,6 +76,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       setModalRoot(field);
       setIsModalOpen(!isModalOpen);
     }
+    buttonRef.current = e.currentTarget as HTMLButtonElement;
   };
 
   const handleSelectionClick = (field: string) => {
@@ -125,6 +131,17 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     }
   };
 
+  const modalContent =
+    buttonRef.current !== null
+      ? createPortal(
+        <ToggleListModal
+          selectedCondition={handleSelectedCondition()}
+          onClick={handleSelectionClick}
+        />,
+        buttonRef.current
+      )
+      : null;
+
   // const modalContent =
   //   modalContentEl !== null
   //     ? createPortal(
@@ -150,6 +167,20 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
   //   };
   // }, [isModalOpen]);
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (event.target !== buttonRef.current && !toggleButtonClickedRef.current) {
+        setIsModalOpen(false);
+      }
+      toggleButtonClickedRef.current = false;
+    };
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isModalOpen]);
+
   return (
     <section className="flex w-full flex-col items-center border border-brand-blue bg-brand-blue sm:rounded">
       <div className="flex h-[2.75rem] w-full">
@@ -159,8 +190,9 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
           >
             <button
               id="leftCondition"
+              ref={buttonRef}
               className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={(e) => handleToggleClick(e.currentTarget.id)}
+              onClick={(e) => handleToggleClick(e.currentTarget.id, e)}
             >
               {leftCondition} ⌄
             </button>
@@ -170,8 +202,9 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
           >
             <button
               id="rightCondition"
+              ref={buttonRef}
               className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={(e) => handleToggleClick(e.currentTarget.id)}
+              onClick={(e) => handleToggleClick(e.currentTarget.id, e)}
             >
               {rightCondition} ⌄
             </button>
@@ -202,7 +235,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
           </div>
         </div>
       </div>
-      {/* isModalOpen && modalContent */}
+      {isModalOpen && modalContent}
     </section>
   );
 }
