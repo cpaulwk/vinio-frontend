@@ -35,7 +35,7 @@ export default function Home() {
         ref={targetRef}
         className="flex min-h-screen w-screen flex-col"
       >
-        <div className="flex h-[100vh] max-h-[100vh] md:h-[40vh] md:min-h-[40vh] w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:flex-row">
+        <div className="flex h-[100vh] max-h-[100vh] w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-white text-brand-red md:h-[40vh] md:min-h-[40vh] md:flex-row">
           <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
             <p className="text-l sm:text-xl">Personalized recommendations</p>
             <p>
@@ -46,7 +46,7 @@ export default function Home() {
               preferences and the occasion.
             </p>
           </div>
-          <div className="relative aspect-square flex h-full basis-1/2 justify-center ">
+          <div className="relative flex aspect-square h-full basis-1/2 justify-center ">
             <Image
               src="/images/dining_vibe.png"
               fill={true}
@@ -55,7 +55,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex h-[100vh] max-h-[100vh] md:h-[40vh] md:min-h-[40vh] md:h-full w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:flex-row-reverse">
+        <div className="flex h-[100vh] max-h-[100vh] w-full flex-col items-center justify-center gap-[3.15rem] bg-brand-blue text-brand-white md:h-[40vh] md:h-[40vh] md:min-h-[40vh] md:flex-row-reverse">
           <div className="flex h-full w-full basis-1/2 flex-col items-center justify-center gap-[2rem] p-[1.25rem] md:items-start md:gap-[1rem] md:pl-[5rem]">
             <p className="text-l sm:text-xl">Made for everyone</p>
 
@@ -67,7 +67,7 @@ export default function Home() {
               new favorite bottle.
             </p>
           </div>
-          <div className="relative aspect-square flex h-full basis-1/2 justify-center ">
+          <div className="relative flex aspect-square h-full basis-1/2 justify-center ">
             <Image
               src="/images/wine_pairing.png"
               fill={true}
