@@ -12,27 +12,16 @@ export async function fetchAutocompleteData() {
   const response = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/autocomplete/`);
   const data = await response.json();
 
-  const appellationData = data.allData
-    .filter((products: AutocompleteData) => products.category === "appellation")
-    .map((appellation: AutocompleteData) =>
-      convertToSentenceCase(appellation.name)
-    );
+  const filterAndMapData = (category: string) => {
+    return data.allData
+      .filter((product: AutocompleteData) => product.category === category)
+      .map((product: AutocompleteData) => convertToSentenceCase(product.name));
+  };
 
-  const cheeseData = data.allData
-    .filter((products: AutocompleteData) => products.category === "cheese")
-    .map((cheese: AutocompleteData) => convertToSentenceCase(cheese.name));
-
-  const meatData = data.allData
-    .filter((products: AutocompleteData) => products.category === "meat")
-    .map((meat: AutocompleteData) => convertToSentenceCase(meat.name));
-
-  const grapeVarietyData = data.allData
-    .filter(
-      (products: AutocompleteData) => products.category === "grape_variety"
-    )
-    .map((grapeVariety: AutocompleteData) =>
-      convertToSentenceCase(grapeVariety.name)
-    );
+  const appellationData = filterAndMapData("appellation");
+  const cheeseData = filterAndMapData("cheese");
+  const meatData = filterAndMapData("meat");
+  const grapeVarietyData = filterAndMapData("grape_variety");
 
   const result = {
     appellation: appellationData,
