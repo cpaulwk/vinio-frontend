@@ -9,26 +9,35 @@ function convertToSentenceCase(name: string) {
 
 export async function fetchAutocompleteData() {
   const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-  const response = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/autocomplete/`);
-  const data = await response.json();
 
-  const filterAndMapData = (category: string) => {
-    return data.allData
-      .filter((product: AutocompleteData) => product.category === category)
-      .map((product: AutocompleteData) => convertToSentenceCase(product.name));
-  };
+  try {
+    const response = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/autocomplete/`);
+    const data = await response.json();
 
-  const appellationData = filterAndMapData("appellation");
-  const cheeseData = filterAndMapData("cheese");
-  const meatData = filterAndMapData("meat");
-  const grapeVarietyData = filterAndMapData("grape_variety");
+    const filterAndMapData = (category: string) => {
+      return data.allData
+        .filter(
+          ({ category: productCategory }: AutocompleteData) =>
+            productCategory === category
+        )
+        .map(({ name }: AutocompleteData) => convertToSentenceCase(name));
+    };
 
-  const result = {
-    appellation: appellationData,
-    cheese: cheeseData,
-    meat: meatData,
-    grapeVariety: grapeVarietyData,
-  };
+    const appellationData = filterAndMapData("appellation");
+    const cheeseData = filterAndMapData("cheese");
+    const meatData = filterAndMapData("meat");
+    const grapeVarietyData = filterAndMapData("grape_variety");
 
-  return result;
+    const result = {
+      appellation: appellationData,
+      cheese: cheeseData,
+      meat: meatData,
+      grapeVariety: grapeVarietyData,
+    };
+
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to fetch autocomplete data");
+  }
 }
