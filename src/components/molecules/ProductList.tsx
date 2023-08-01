@@ -21,19 +21,22 @@ export default function ProductList({
   renderProduct,
   numberOfResults,
 }: ProductListProps) {
+  const formatProductTitle = (name: string) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   return (
     <div
       key={product.product_id}
-      className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${
-        numberOfResults + 1
-      } border text-brand-blue`}
+      className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${numberOfResults + 1
+        } border text-brand-blue`}
     >
       <button
         id={product.product}
         onClick={() => handleButtonClick(product.product_id)}
         className="w-full bg-brand-blue text-l text-brand-white"
       >
-        {product.product[0].toUpperCase() + product.product.slice(1)}
+        {formatProductTitle(product.product)}
         <span className="ml-[0.75rem]">⌄</span>
       </button>
       {toggleResult[product.product_id] && (
