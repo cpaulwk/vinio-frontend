@@ -36,10 +36,6 @@ export default function SearchInput({
     setCurrentInput(null);
   };
 
-  const handleOnBlur = () => {
-    setCurrentInput(null);
-  };
-
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     setFilteredSuggestions(allSuggestions[e.currentTarget.id]);
     setCurrentInput(e.currentTarget.id);
@@ -82,7 +78,7 @@ export default function SearchInput({
         placeholder={`Type a ${id.toLowerCase()}`}
         className="w-full rounded-b border border-brand-white px-4 py-2 focus:outline-none"
         onClick={handleInputClick}
-        onBlur={handleOnBlur}
+        onBlur={() => setCurrentInput(null)}
       />
       {currentInput && filteredSuggestions && (
         <ul
