@@ -2,7 +2,6 @@ import Link from "next/link";
 
 type ButtonProps = {
   name: string;
-  borderColor?: string;
 };
 
 export default function Button({ name }: ButtonProps) {

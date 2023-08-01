@@ -75,7 +75,7 @@ export default function Home() {
               wine enthusiast or just starting to explore the world of wine.
             </p>
           </div>
-          <Button name="Try Vinio" borderColor="white" />
+          <Button name="Try Vinio" />
         </div>
       </div>
     </main>
