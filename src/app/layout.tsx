@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import "../styles/globals.css";
-import { Ubuntu } from "next/font/google";
+import { Comme } from "next/font/google";
 
-const ubuntu = Ubuntu({ subsets: ["latin"], weight: "300" });
+const comme = Comme({ subsets: ["latin"], weight: "300" });
 
 export const metadata: Metadata = {
   title: "Vinio",
@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body>{children}</body>
+      <body className={comme.className}>{children}</body>
     </html>
   );
 }
