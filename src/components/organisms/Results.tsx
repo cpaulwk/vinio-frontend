@@ -1,5 +1,5 @@
 import ProductList from "@/components/molecules/ProductList";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 interface Product {
   product_id: number;
@@ -34,45 +34,40 @@ export default function Results({
   if (typeof results === "string") {
     resultMessage = results;
   } else if (Array.isArray(results)) {
-    const renderProduct = useMemo(
-      () => (product: Product) => {
-        const children = results.filter(
-          (obj) => obj.parent_id === product.product_id
-        );
+    const renderProduct = (product: Product) => {
+      const children = results.filter(
+        (obj) => obj.parent_id === product.product_id
+      );
 
-        if (children.length === 0) {
-          return (
-            <p key={product.product_id}>
-              {product.product[0].toUpperCase() + product.product.slice(1)}
-            </p>
-          );
-        }
-
-        const handleButtonClick = (productId: number) => {
-          setToggleResult((prevState) => ({
-            ...prevState,
-            [productId]: !prevState[productId],
-          }));
-        };
-
-        const numberOfResults = results.filter(
-          (obj) => obj.parent_id < 3
-        ).length;
-
+      if (children.length === 0) {
         return (
-          <ProductList
-            key={product.product_id}
-            product={product}
-            toggleResult={toggleResult}
-            children={children}
-            handleButtonClick={handleButtonClick}
-            renderProduct={renderProduct}
-            numberOfResults={numberOfResults}
-          />
+          <p key={product.product_id}>
+            {product.product[0].toUpperCase() + product.product.slice(1)}
+          </p>
         );
-      },
-      [results]
-    );
+      }
+
+      const handleButtonClick = (productId: number) => {
+        setToggleResult((prevState) => ({
+          ...prevState,
+          [productId]: !prevState[productId],
+        }));
+      };
+
+      const numberOfResults = results.filter((obj) => obj.parent_id < 3).length;
+
+      return (
+        <ProductList
+          key={product.product_id}
+          product={product}
+          toggleResult={toggleResult}
+          children={children}
+          handleButtonClick={handleButtonClick}
+          renderProduct={renderProduct}
+          numberOfResults={numberOfResults}
+        />
+      );
+    };
 
     resultMessage = results
       .filter((obj) => obj.parent_id < 3)
@@ -99,7 +94,7 @@ export default function Results({
           {resultMessage}
         </div>
       </div>
-      {isSuggesting && otherSuggestions && otherSuggestions.length > 0 && (
+      {isSuggesting && (
         <p
           className={`w-full border-y bg-white px-[1.5rem] py-[0.75rem] text-center text-brand-blue max-xs:hidden sm:rounded sm:border`}
         >

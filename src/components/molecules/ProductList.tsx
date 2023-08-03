@@ -5,6 +5,7 @@ interface Product {
 }
 
 type ProductListProps = {
+  key: number;
   product: Product;
   toggleResult: Record<string, boolean>;
   handleButtonClick: (productId: number) => void;
@@ -14,6 +15,7 @@ type ProductListProps = {
 };
 
 export default function ProductList({
+  key,
   product,
   toggleResult,
   children,
@@ -27,7 +29,7 @@ export default function ProductList({
 
   return (
     <div
-      key={product.product_id}
+      key={key}
       className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${numberOfResults + 1
         } border text-brand-blue`}
     >
