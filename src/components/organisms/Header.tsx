@@ -42,12 +42,6 @@ export default function Header({ page }: HeaderProps) {
           </div>
         )}
       </div>
-      <div
-        className={`flex items-center ${fontColor} text-l max-xs:hidden xl:text-xl`}
-      >
-        <button className="border-r px-[0.875rem]">FR</button>
-        <button className="px-[0.875rem]">EN</button>
-      </div>
     </header>
   );
 }
