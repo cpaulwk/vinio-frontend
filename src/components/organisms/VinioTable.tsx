@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import ToggleListModal from "@/components/molecules/ToggleListModal";
 import SearchInput from "@/components/molecules/SearchInput";
 import { fetchAutocompleteData } from "@/utils/dataAutocompletion";
 import { createPortal } from "react-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 type VinioTableProps = {
   query: Query;
@@ -21,10 +23,7 @@ interface Query {
 }
 
 export default function VinioTable({ query, setQuery }: VinioTableProps) {
-  const [condition, setCondition] = useState<{
-    leftCondition: string;
-    rightCondition: string;
-  }>({
+  const [condition, setCondition] = useState<{ [key: string]: string }>({
     leftCondition: "Grape Variety",
     rightCondition: "Cheese",
   });
@@ -35,18 +34,17 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
       leftOptions: [],
       rightOptions: [],
     });
-  const [label, setLabel] = useState<{ leftLabel: string; rightLabel: string }>(
-    {
-      leftLabel: "grape variety",
-      rightLabel: "cheese",
-    }
-  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalRoot, setModalRoot] = useState("leftCondition");
   const [selectedCondition, setSelectedCondition] = useState("leftCondition");
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const parentContainerRef = useRef<HTMLDivElement | null>(null);
   const toggleButtonClickedRef = useRef(false);
+  const [buttonStates, setButtonStates] = useState<{ [key: string]: boolean }>({
+    leftCondition: false,
+    rightCondition: false,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,11 +68,29 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     if (isModalOpen && field !== modalRoot) {
       setModalRoot(field);
       toggleButtonClickedRef.current = true;
+
+      setButtonStates((prevStates) => ({
+        ...Object.keys(prevStates).reduce((states, key) => {
+          states[key] = key === field ? !prevStates[key] : false;
+          return states;
+        }, {} as { [key: string]: boolean }),
+      }));
     } else {
       setModalRoot(field);
       setIsModalOpen(!isModalOpen);
+      setButtonStates((prevStates) => ({
+        ...prevStates,
+        [field]: !prevStates[field],
+      }));
     }
+
     buttonRef.current = event.currentTarget;
+
+    const parentNode = event.currentTarget.parentNode;
+
+    if (parentNode) {
+      parentContainerRef.current = parentNode as HTMLDivElement;
+    }
   };
 
   const handleSelectionClick = (field: string) => {
@@ -83,41 +99,30 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
         return index === 0 ? match.toLowerCase() : match.toUpperCase();
       })
       .replace(/\s+/g, "");
-    const updatedCondition =
-      selectedCondition === "leftCondition"
-        ? { ...condition, leftCondition: field }
-        : { ...condition, rightCondition: field };
 
-    const updatedLabel =
-      selectedCondition === "leftCondition"
-        ? { ...label, leftLabel: field }
-        : { ...label, rightLabel: field };
+    const updatedCondition = {
+      ...condition,
+      [selectedCondition]: field,
+    };
 
-    const updatedOptions =
-      selectedCondition === "leftCondition"
-        ? {
-            ...autocompleteOptions,
-            leftOptions: autocompleteOptions.allOptions[chosenField],
-          }
-        : {
-            ...autocompleteOptions,
-            rightOptions: autocompleteOptions.allOptions[chosenField],
-          };
+    const updatedOptions = {
+      ...autocompleteOptions,
+      [selectedCondition === "leftCondition" ? "leftOptions" : "rightOptions"]:
+        autocompleteOptions.allOptions[chosenField],
+    };
 
-    const clearedQuery =
-      selectedCondition === "leftCondition"
-        ? { ...query, leftQuery: "" }
-        : { ...query, rightQuery: "" };
+    const clearedQuery = {
+      ...query,
+      [selectedCondition === "leftCondition" ? "leftQuery" : "rightQuery"]: "",
+    };
 
     setIsModalOpen(false);
     setCondition(updatedCondition);
-    setLabel(updatedLabel);
     setAutocompleteOptions(updatedOptions);
     setQuery(clearedQuery);
   };
 
   const { leftCondition, rightCondition } = condition;
-  const { leftLabel, rightLabel } = label;
 
   const handleSelectedCondition = () => {
     if (selectedCondition === "leftCondition") {
@@ -127,16 +132,22 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     }
   };
 
-  const modalContent =
-    buttonRef.current !== null
-      ? createPortal(
-          <ToggleListModal
-            selectedCondition={handleSelectedCondition()}
-            onClick={handleSelectionClick}
-          />,
-          buttonRef.current
-        )
-      : null;
+  const modalContent = useMemo(() => {
+    if (parentContainerRef.current) {
+      return createPortal(
+        <ToggleListModal
+          selectedCondition={handleSelectedCondition()}
+          onClick={handleSelectionClick}
+        />,
+        parentContainerRef.current
+      );
+    }
+    return null;
+  }, [
+    parentContainerRef.current,
+    handleSelectedCondition,
+    handleSelectionClick,
+  ]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -145,6 +156,10 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
         !toggleButtonClickedRef.current
       ) {
         setIsModalOpen(false);
+        setButtonStates({
+          leftCondition: false,
+          rightCondition: false,
+        });
       }
       toggleButtonClickedRef.current = false;
     };
@@ -159,39 +174,52 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
     <section className="flex w-full flex-col items-center border border-brand-blue bg-brand-blue sm:rounded">
       <div className="flex h-[2.75rem] w-full">
         <div className="flex grow items-center justify-center">
-          <div
-            className={`flex flex-1 items-center max-xs:hidden sm:px-[1.5rem]`}
-          >
-            <button
-              id="leftCondition"
-              ref={buttonRef}
-              className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={handleToggleClick}
+          {["leftCondition", "rightCondition"].map((field) => (
+            <div
+              key={field}
+              ref={parentContainerRef}
+              className={`relative flex flex-1 items-center px-[1.5rem] max-xs:hidden`}
             >
-              {leftCondition} ⌄
-            </button>
-          </div>
-          <div
-            className={`flex flex-1 items-center max-xs:hidden sm:px-[1.5rem]`}
-          >
-            <button
-              id="rightCondition"
-              ref={buttonRef}
-              className="relative z-50 flex items-center justify-center text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
-              onClick={handleToggleClick}
-            >
-              {rightCondition} ⌄
-            </button>
-          </div>
+              <button
+                id={field}
+                ref={buttonRef}
+                className="z-50 flex items-end justify-center leading-none text-brand-white hover:cursor-pointer sm:justify-start sm:p-[0.5rem]"
+                onClick={handleToggleClick}
+              >
+                {condition[field]}
+                <FontAwesomeIcon
+                  className="ml-1 h-[15px]"
+                  icon={buttonStates[field] ? faChevronUp : faChevronDown}
+                  style={{ color: "#f8fdfd" }}
+                />
+              </button>
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex w-full">
         <div className="flex grow justify-center bg-brand-white">
+          {/*
+          {["leftQuery", "rightQuery"].map((field) => (
+            <div
+              key={field}
+              className={`relative flex flex-1 border-r border-brand-blue max-xs:hidden`}
+            >
+              <SearchInput
+                id={label[field]}
+                name={field}
+                allSuggestions={autocompleteData}
+                query={query}
+                setQuery={setQuery}
+              />
+            </div>
+          ))}
+          */}
           <div
             className={`relative flex flex-1 border-r border-brand-blue max-xs:hidden`}
           >
             <SearchInput
-              id={leftLabel}
+              id={leftCondition}
               name="leftQuery"
               allSuggestions={autocompleteData}
               query={query}
@@ -200,7 +228,7 @@ export default function VinioTable({ query, setQuery }: VinioTableProps) {
           </div>
           <div className={`relative flex flex-1 max-xs:hidden`}>
             <SearchInput
-              id={rightLabel}
+              id={rightCondition}
               name="rightQuery"
               allSuggestions={autocompleteData}
               query={query}

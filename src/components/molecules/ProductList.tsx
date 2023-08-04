@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+
 interface Product {
   product_id: number;
   product: string;
@@ -36,10 +39,14 @@ export default function ProductList({
       <button
         id={product.product}
         onClick={() => handleButtonClick(product.product_id)}
-        className="w-full bg-brand-blue text-l text-brand-white"
+        className="w-full flex items-center justify-center bg-brand-blue text-l text-brand-white"
       >
         {formatProductTitle(product.product)}
-        <span className="ml-[0.75rem]">⌄</span>
+        <FontAwesomeIcon
+          className="ml-1 h-[15px]"
+          icon={toggleResult[product.product_id] ? faChevronUp : faChevronDown}
+          style={{ color: "#f8fdfd" }}
+        />
       </button>
       {toggleResult[product.product_id] && (
         <div className={`flex w-full flex-col items-start px-[2rem]`}>
