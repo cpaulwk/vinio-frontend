@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/organisms/Header";
+import Footer from "@/components/organisms/Footer";
 
 export default function About() {
 
@@ -59,6 +60,7 @@ export default function About() {
           </p>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
