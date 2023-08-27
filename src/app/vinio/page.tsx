@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/organisms/Header";
+import Footer from "@/components/organisms/Footer";
 import VinioTable from "@/components/organisms/VinioTable";
 import SubmitButton from "@/components/atoms/SubmitButton";
 import { useState } from "react";
@@ -159,6 +160,7 @@ export default function Vinio() {
             <SubmitButton name="Pair!" handleClick={pair} />
           </div>
         </div>
+        <Footer />
       </div>
     </main>
   );
