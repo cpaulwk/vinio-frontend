@@ -12,6 +12,7 @@ export default function HeroBackground({ imageSrc }: HeroBackgroundProps) {
         fill={true}
         style={{ objectFit: "cover" }}
         alt="hero-background"
+        priority
       />
     </div>
   )
