@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import Header from "@/components/organisms/Header";
+import Footer from "@/components/organisms/Footer";
 import Button from "@/components/atoms/Button";
 import FeatureItem from "@/components/molecules/FeatureItem";
 import SectionWithImage from "@/components/organisms/SectionWithImage";
@@ -47,7 +48,7 @@ export default function Home() {
           content="And the best part? Our web application is accessible to everyone, not just those with a refined palate or extensive wine knowledge. Whether you're a seasoned wine enthusiast or just starting to explore the world of wine, Vinio is here to help you discover your new favorite bottle."
           reverse
         />
-        <div className="flex min-h-[30vh] flex-wrap items-center justify-center bg-brand-white  py-[1.25rem] text-brand-blue sm:px-[6.25rem]">
+        <div className="flex min-h-[30vh] flex-wrap items-center justify-center bg-brand-white py-[1.25rem] text-brand-blue sm:px-[6.25rem]">
           <FeatureItem
             title="Convenient"
             content="Saves you time and money by helping you select the perfect bottle for any occasion."
@@ -65,7 +66,7 @@ export default function Home() {
             content="Makes you feel confident in your wine selection, even if you're a beginner."
           />
         </div>
-        <div className="flex min-h-[30vh] w-full flex-col items-center justify-center gap-[3rem] bg-brand-red p-[3.125rem] text-brand-white">
+        <div className="flex min-h-[20vh] w-full flex-col items-center justify-center gap-[3rem] bg-brand-red p-[2.5rem] text-brand-white">
           <div className="flex flex-col items-center justify-center gap-[1rem]">
             <p className="text-center">
               Ready to experience the future of wine selection?
@@ -78,6 +79,7 @@ export default function Home() {
           <Button name="Try Vinio" />
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
