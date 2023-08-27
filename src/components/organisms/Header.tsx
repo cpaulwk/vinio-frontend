@@ -33,13 +33,13 @@ export default function Header({ page }: HeaderProps) {
           Vinio
         </Link>
         {page !== Page.Vinio && (
-          <div
+          <nav
             className={`flex items-center gap-x-[3rem] text-l max-md:hidden lg:gap-x-[5.3125rem] xl:text-2xl`}
           >
             <Link href="/#home">Home</Link>
             <Link href="/#what-is-vinio">What is Vinio?</Link>
             <Link href="/about">About</Link>
-          </div>
+          </nav>
         )}
       </div>
     </header>
