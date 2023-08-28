@@ -20,7 +20,7 @@ export default function About() {
           </div>
           <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-x-[4rem] gap-y-[2rem]">
             <div className="flex flex-col items-center gap-y-[1.25rem] ">
-              <p className="text-brand-red">Who am I ?</p>
+              <p className="text-brand-red text-l">Who am I ?</p>
               <p className="text-brand-blue">
                 Hello, and thank you for visiting Vinio! My name is Paul Chow,
                 and I am a wine enthusiast and self-taught web developer. I
@@ -30,7 +30,7 @@ export default function About() {
               </p>
             </div>
             <div className="flex flex-col items-center gap-y-[1.25rem]">
-              <p className="text-brand-red">Why Vinio?</p>
+              <p className="text-brand-red text-l">Why Vinio?</p>
               <p className="text-brand-blue">
                 As a wine enthusiast myself living in France, I know firsthand
                 how overwhelming it can be to navigate the countless options
@@ -41,7 +41,7 @@ export default function About() {
               </p>
             </div>
             <div className="flex flex-col items-center gap-y-[1.25rem]">
-              <p className="text-brand-red">One more thing...</p>
+              <p className="text-brand-red text-l">One more thing...</p>
               <p className="text-brand-blue">
                 But Vinio is more than just a tool for wine lovers - it's also a
                 showcase of my skills as a full stack web developer. I'm excited
