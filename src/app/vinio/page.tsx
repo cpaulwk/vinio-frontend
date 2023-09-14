@@ -3,8 +3,9 @@
 import Header from "@/components/organisms/Header";
 import Footer from "@/components/organisms/Footer";
 import VinioTable from "@/components/organisms/VinioTable";
+import VinioTableSuggestion from "@/components/organisms/VinioTableSuggestion";
 import SubmitButton from "@/components/atoms/SubmitButton";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import Results from "@/components/organisms/Results";
 import ErrorMessage from "@/components/organisms/ErrorMessage";
 
@@ -36,6 +37,7 @@ export default function Vinio() {
   const [isSuggesting, setIsSuggesting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [mode, setMode] = useState("suggest");
 
   const fetchData = async (url: string, requestData: any) => {
     try {
@@ -53,6 +55,11 @@ export default function Vinio() {
       throw new Error("An error occurred during the API request");
     }
   };
+
+  const handleMode = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("e.target.id: ", e.target.id)
+    setMode(e.target.id);
+  }
 
   const getSuggestion = async (): Promise<void> => {
     if (!query.leftQuery) {
@@ -132,11 +139,33 @@ export default function Vinio() {
 
   return (
     <main className="flex w-screen flex-col items-center justify-between bg-brand-white">
-      <div className="flex h-screen w-screen flex-col">
+      <div className="flex h-screen w-screen flex-col items-center">
         <Header page="Vinio" />
-        <div className="flex h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] md:p-[4.53125rem]">
+        <div className="flex flex-col items-center gap-y-[10px]">
+          <p>I would like to:</p>
+          <button
+            id="suggest"
+            className="rounded-[50px] border border-brand-blue text-brand-white bg-brand-blue py-[5px] px-[10px]"
+            onClick={handleMode}
+          >
+            Get food suggestion to pair with my wine
+          </button>
+          <button
+            id="pair"
+            className="rounded-[50px] border border-brand-red text-brand-white bg-brand-red py-[5px] px-[10px]"
+            onClick={handleMode}
+          >
+            Pair a wine with a type of food
+          </button>
+        </div>
+        <div className="flex h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] md:p-[2rem] w-full">
           <div className="flex w-full basis-4/5 flex-col items-center justify-center gap-y-[3.5rem]">
-            <VinioTable setQuery={setQuery} query={query} />
+            {
+              mode === "suggest" ?
+                <VinioTableSuggestion setQuery={setQuery} query={query} />
+                :
+                <VinioTable setQuery={setQuery} query={query} />
+            }
             {!isLoading ? (
               results ? (
                 <Results
@@ -152,16 +181,20 @@ export default function Vinio() {
             )}
           </div>
           <div className="flex basis-1/5 flex-col items-center justify-center gap-[2.75rem] pb-[1rem] sm:flex-row">
-            <SubmitButton
-              name="Get Suggestion!"
-              color="blue"
-              handleClick={getSuggestion}
-            />
-            <SubmitButton name="Pair!" handleClick={pair} />
+            {
+              mode === "suggest" ?
+                <SubmitButton
+                  name="Get Suggestion!"
+                  color="blue"
+                  handleClick={getSuggestion}
+                />
+                :
+                <SubmitButton name="Pair!" handleClick={pair} />
+            }
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </main>
   );
 }
