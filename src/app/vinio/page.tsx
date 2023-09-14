@@ -5,7 +5,7 @@ import Footer from "@/components/organisms/Footer";
 import VinioTable from "@/components/organisms/VinioTable";
 import VinioTableSuggestion from "@/components/organisms/VinioTableSuggestion";
 import SubmitButton from "@/components/atoms/SubmitButton";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import Results from "@/components/organisms/Results";
 import ErrorMessage from "@/components/organisms/ErrorMessage";
 
@@ -57,8 +57,7 @@ export default function Vinio() {
   };
 
   const handleMode = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("e.target.id: ", e.target.id)
-    setMode(e.target.id);
+    setMode(e.currentTarget.id);
   }
 
   const getSuggestion = async (): Promise<void> => {
