@@ -1,6 +1,7 @@
 type ToggleListModalProps = {
   onClick: (arg: string) => void;
   selectedCondition: string;
+  isSuggesting: boolean;
 };
 
 const conditionMappings = [
@@ -23,9 +24,18 @@ const conditionMappings = [
 export default function ToggleListModal({
   onClick,
   selectedCondition,
+  isSuggesting
 }: ToggleListModalProps) {
+  let modeStyle = "";
+
+  if (isSuggesting) {
+    modeStyle = "";
+  } else {
+    modeStyle = "left-[-1px]"
+  }
+
   return (
-    <ul className="absolute top-9 z-10 flex flex-col items-center justify-center rounded-b border border-brand-blue bg-brand-blue px-[1rem] py-[0.5rem] leading-normal text-brand-white">
+    <ul className={`absolute ${modeStyle} top-9 z-10 flex flex-col items-center justify-center rounded-b border border-brand-blue bg-brand-blue px-[1rem] py-[0.5rem] leading-normal text-brand-white`}>
       {conditionMappings.map((mapping) =>
         mapping.conditions.includes(selectedCondition)
           ? mapping.buttons.map((button) => (
