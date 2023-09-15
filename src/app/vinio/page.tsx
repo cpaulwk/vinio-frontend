@@ -2,7 +2,7 @@
 
 import Header from "@/components/organisms/Header";
 import Footer from "@/components/organisms/Footer";
-import VinioTable from "@/components/organisms/VinioTable";
+import VinioTablePair from "@/components/organisms/VinioTablePair";
 import VinioTableSuggestion from "@/components/organisms/VinioTableSuggestion";
 import SubmitButton from "@/components/atoms/SubmitButton";
 import { useState } from "react";
@@ -167,7 +167,7 @@ export default function Vinio() {
               isSuggesting ?
                 <VinioTableSuggestion setQuery={setQuery} query={query} isSuggesting={isSuggesting} />
                 :
-                <VinioTable setQuery={setQuery} query={query} isSuggesting={isSuggesting} />
+                <VinioTablePair setQuery={setQuery} query={query} isSuggesting={isSuggesting} />
             }
             {!isLoading ? (
               results ? (
