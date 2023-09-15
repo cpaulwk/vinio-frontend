@@ -6,9 +6,10 @@ import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
-type VinioTableProps = {
+type VinioTableSuggestionProps = {
   query: Query;
   setQuery: (input: Query) => void;
+  isSuggesting: boolean;
 };
 
 interface AutocompleteOptions {
@@ -22,7 +23,7 @@ interface Query {
   rightQuery: string;
 }
 
-export default function VinioTableSuggestion({ query, setQuery }: VinioTableProps) {
+export default function VinioTableSuggestion({ query, setQuery, isSuggesting }: VinioTableSuggestionProps) {
   const [condition, setCondition] = useState<{ [key: string]: string }>({
     leftCondition: "Grape Variety",
     rightCondition: "Cheese",
@@ -122,7 +123,7 @@ export default function VinioTableSuggestion({ query, setQuery }: VinioTableProp
     setQuery(clearedQuery);
   };
 
-  const { leftCondition, rightCondition } = condition;
+  const { leftCondition } = condition;
 
   const handleSelectedCondition = () => {
     if (selectedCondition === "leftCondition") {
@@ -138,6 +139,7 @@ export default function VinioTableSuggestion({ query, setQuery }: VinioTableProp
         <ToggleListModal
           selectedCondition={handleSelectedCondition()}
           onClick={handleSelectionClick}
+          isSuggesting={isSuggesting}
         />,
         parentContainerRef.current
       );
