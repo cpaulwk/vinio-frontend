@@ -37,7 +37,6 @@ export default function Vinio() {
   const [isSuggesting, setIsSuggesting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [mode, setMode] = useState("suggest");
 
   const fetchData = async (url: string, requestData: any) => {
     try {
@@ -57,7 +56,12 @@ export default function Vinio() {
   };
 
   const handleMode = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setMode(e.currentTarget.id);
+    if (e.currentTarget.id === "suggest") {
+      setIsSuggesting(true);
+    } else {
+      setIsSuggesting(false);
+    }
+    setIsLoading(true);
   }
 
   const getSuggestion = async (): Promise<void> => {
@@ -160,10 +164,10 @@ export default function Vinio() {
         <div className="flex h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] md:p-[2rem] w-full">
           <div className="flex w-full basis-4/5 flex-col items-center justify-center gap-y-[3.5rem]">
             {
-              mode === "suggest" ?
-                <VinioTableSuggestion setQuery={setQuery} query={query} />
+              isSuggesting ?
+                <VinioTableSuggestion setQuery={setQuery} query={query} isSuggesting={isSuggesting} />
                 :
-                <VinioTable setQuery={setQuery} query={query} />
+                <VinioTable setQuery={setQuery} query={query} isSuggesting={isSuggesting} />
             }
             {!isLoading ? (
               results ? (
@@ -181,7 +185,7 @@ export default function Vinio() {
           </div>
           <div className="flex basis-1/5 flex-col items-center justify-center gap-[2.75rem] pb-[1rem] sm:flex-row">
             {
-              mode === "suggest" ?
+              isSuggesting ?
                 <SubmitButton
                   name="Get Suggestion!"
                   color="blue"
