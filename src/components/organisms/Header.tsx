@@ -8,10 +8,6 @@ type HeaderProps = {
 	targetRef?: React.MutableRefObject<HTMLDivElement | null | undefined>;
 };
 
-interface FontColors {
-	[key: string]: string;
-}
-
 export default function Header({ page }: HeaderProps) {
 	const [isNavBarOpen, setIsNavBarOpen] = useState(false);
 
@@ -43,7 +39,7 @@ export default function Header({ page }: HeaderProps) {
 					</nav>
 				)}
 			</div>
-			<button onClick={() => setIsNavBarOpen(true)}>
+			<button className="md:hidden" onClick={() => setIsNavBarOpen(true)}>
 				<FontAwesomeIcon
 					className=""
 					icon={faBars}
