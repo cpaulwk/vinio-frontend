@@ -161,7 +161,7 @@ export default function Vinio() {
             Pair a wine with a type of food
           </button>
         </div>
-        <div className="flex h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] md:p-[2rem] w-full">
+        <div className="flex flex-1 h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] max-md:py-[2rem] md:p-[2rem] w-full">
           <div className="flex w-full basis-4/5 flex-col items-center justify-center gap-y-[3.5rem]">
             {
               isSuggesting ?
@@ -196,8 +196,8 @@ export default function Vinio() {
             }
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </main>
   );
 }
