@@ -201,8 +201,8 @@ export default function Vinio() {
             }
           </div>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </main>
   );
 }
