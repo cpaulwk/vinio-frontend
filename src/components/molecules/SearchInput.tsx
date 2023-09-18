@@ -75,7 +75,7 @@ export default function SearchInput({
         type="text"
         value={getInputValue()}
         onChange={handleOnChange}
-        placeholder={`Pair with ${id.toLowerCase()}`}
+        placeholder={`Type in ${id.toLowerCase()}...`}
         className="w-full rounded-b border border-brand-white px-4 py-2 focus:outline-none"
         onClick={handleInputClick}
         onBlur={() => setCurrentInput(null)}
