@@ -152,18 +152,18 @@ export default function Vinio() {
         <div className="flex flex-col items-center gap-y-[10px]">
           <p>I would like to:</p>
           <button
-            id="suggest"
-            className="rounded-[50px] border border-brand-blue text-brand-white bg-brand-blue py-[5px] px-[10px]"
-            onClick={handleMode}
-          >
-            Get food suggestion to pair with my wine
-          </button>
-          <button
             id="pair"
             className="rounded-[50px] border border-brand-red text-brand-white bg-brand-red py-[5px] px-[10px]"
             onClick={handleMode}
           >
             Pair a wine with a type of food
+          </button>
+          <button
+            id="suggest"
+            className="rounded-[50px] border border-brand-blue text-brand-white bg-brand-blue py-[5px] px-[10px]"
+            onClick={handleMode}
+          >
+            Get food suggestion to pair with my wine
           </button>
         </div>
         <div className="flex flex-1 h-full flex-col items-center gap-y-[2rem] sm:gap-y-[5.6875rem] max-md:py-[2rem] md:p-[2rem] w-full">
