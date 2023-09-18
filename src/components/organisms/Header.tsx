@@ -14,7 +14,7 @@ export default function Header({ page }: HeaderProps) {
 	const fontColor = page === "Home" ? "text-brand-white" : "text-brand-red";
 
 	const navigationLinks = [
-		{ href: "/#home", text: "Home" },
+		// { href: "/#home", text: "Home" },
 		{ href: "/#what-is-vinio", text: "What is Vinio?" },
 		{ href: "/about", text: "About" },
 	]
