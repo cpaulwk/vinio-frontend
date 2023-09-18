@@ -62,6 +62,11 @@ export default function Vinio() {
       setIsSuggesting(false);
     }
     setIsLoading(true);
+
+    const clearedQuery = {
+      ...query, leftQuery: "", rightQuery: ""
+    };
+    setQuery(clearedQuery);
   }
 
   const getSuggestion = async (): Promise<void> => {
