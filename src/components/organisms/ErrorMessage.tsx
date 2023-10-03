@@ -3,7 +3,8 @@ type ErrorMessageProps = {
 };
 
 export default function ErrorMessage({ errorMessage }: ErrorMessageProps) {
-  const defaultErrorMessage = "Sorry we could not find what you were looking for";
+  const defaultErrorMessage =
+    "Sorry we could not find what you were looking for";
 
   const message = errorMessage || defaultErrorMessage;
 
