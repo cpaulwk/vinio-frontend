@@ -23,7 +23,11 @@ interface Query {
   rightQuery: string;
 }
 
-export default function VinioTablePair({ query, setQuery, isSuggesting }: VinioTablePairProps) {
+export default function VinioTablePair({
+  query,
+  setQuery,
+  isSuggesting,
+}: VinioTablePairProps) {
   const [condition, setCondition] = useState<{ [key: string]: string }>({
     leftCondition: "Grape Variety",
     rightCondition: "Cheese",
