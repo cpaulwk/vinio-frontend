@@ -23,7 +23,11 @@ interface Query {
   rightQuery: string;
 }
 
-export default function VinioTableSuggestion({ query, setQuery, isSuggesting }: VinioTableSuggestionProps) {
+export default function VinioTableSuggestion({
+  query,
+  setQuery,
+  isSuggesting,
+}: VinioTableSuggestionProps) {
   const [condition, setCondition] = useState<{ [key: string]: string }>({
     leftCondition: "Grape Variety",
     rightCondition: "Cheese",
@@ -180,7 +184,7 @@ export default function VinioTableSuggestion({ query, setQuery, isSuggesting }: 
             <div
               key={field}
               ref={parentContainerRef}
-              className={`relative flex flex-1 justify-center items-center px-[1.5rem] max-xs:hidden`}
+              className={`relative flex flex-1 items-center justify-center px-[1.5rem] max-xs:hidden`}
             >
               <button
                 id={field}
