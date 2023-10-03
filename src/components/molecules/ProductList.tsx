@@ -33,13 +33,14 @@ export default function ProductList({
   return (
     <div
       key={key}
-      className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${numberOfResults + 1
-        } border text-brand-blue`}
+      className={`flex min-w-[17rem] flex-col rounded max-xs:hidden lg:basis-1/${
+        numberOfResults + 1
+      } border text-brand-blue`}
     >
       <button
         id={product.product}
         onClick={() => handleButtonClick(product.product_id)}
-        className="w-full flex items-center justify-center bg-brand-blue text-l text-brand-white"
+        className="flex w-full items-center justify-center bg-brand-blue text-l text-brand-white"
       >
         {formatProductTitle(product.product)}
         <FontAwesomeIcon
